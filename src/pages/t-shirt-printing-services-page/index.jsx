@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from '../service-detail-page/components/ServiceHero';
 import ServiceDetails from '../service-detail-page/components/ServiceDetails';
@@ -14,70 +17,18 @@ const TShirtPrintingServicesPage = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
 
+
+  const serviceData = services["t-shirt-printing"];
   // T-shirt Printing service specific data
-  const serviceData = {
-    id: 6,
-    title: "T-shirt Printing Services",
-    category: "Custom Apparel",
-    description: "Professional custom t-shirt printing services targeting businesses, events, and personal branding needs with comprehensive printing method options and bulk pricing in KES currency.",
-    detailedDescription: `Our T-shirt Printing Services showcase custom apparel printing capabilities for businesses, events, and personal branding with various printing methods and competitive bulk pricing. Using mobile-first responsive approach, we deliver high-quality custom t-shirts with vibrant designs and exceptional durability.\n\nWhether you need promotional apparel for corporate events, branded merchandise for your business, or custom designs for personal use, our comprehensive printing methods include screen printing, heat transfer, vinyl cutting, and direct-to-garment printing. Each method is carefully selected based on your design requirements, quantity, and budget.\n\nOur experienced team provides design consultation, artwork requirements guidance, and color matching capabilities to ensure your vision becomes reality. With quick turnaround times and competitive KES pricing, we make custom apparel accessible for projects of all sizes.`,
-    heroImage: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop",
-    startingPrice: 450,
-    turnaround: "3-5 days",
-    minimumOrder: "10 pieces",
-    keyFeatures: [
-      "Multiple Printing Methods",
-      "Bulk Pricing Available",
-      "Custom Design Service",
-      "Quick Turnaround"
-    ],
-    specifications: [
-      {
-        icon: "Palette",
-        title: "Printing Methods",
-        description: "Screen print, heat transfer, vinyl cutting, DTG printing"
-      },
-      {
-        icon: "Shirt",
-        title: "Garment Options",
-        description: "Cotton, polyester, blends, hoodies, polo shirts, tank tops"
-      },
-      {
-        icon: "Maximize",
-        title: "Print Areas",
-        description: "Front, back, sleeves, chest pocket designs available"
-      },
-      {
-        icon: "Palette",
-        title: "Color Options",
-        description: "Full-color prints, spot colors, metallic, glow-in-dark"
-      },
-      {
-        icon: "Users",
-        title: "Bulk Orders",
-        description: "Competitive pricing for 50+ pieces with volume discounts"
-      },
-      {
-        icon: "Clock",
-        title: "Rush Orders",
-        description: "Express 24-48 hour service available for urgent needs"
-      }
-    ],
-    materials: [
-      "100% Cotton T-shirts",
-      "Cotton-Polyester Blends",
-      "Performance Polyester",
-      "Premium Cotton",
-      "Hoodies & Sweatshirts",
-      "Polo Shirts",
-      "Tank Tops",
-      "Long Sleeve Shirts",
-      "V-neck T-shirts",
-      "Organic Cotton",
-      "Moisture-Wicking Fabric",
-      "Fashion Fit Shirts"
-    ]
-  };
+
+    ;
+
+    const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for all types of clothe material. Get a free quote for your custom fabrication project today at Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/t-shirt-printing-services-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
 
   const equipmentData = [
     {
@@ -233,6 +184,7 @@ const TShirtPrintingServicesPage = () => {
   const relatedServicesData = [
     {
       title: "Large Format Printing",
+      path: "/service-detail-page",
       category: "Digital Printing",
       description: "Professional large format printing for banners, posters, and business signage.",
       image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
@@ -242,6 +194,7 @@ const TShirtPrintingServicesPage = () => {
     },
     {
       title: "UV Printing",
+      path: "/uv-printing-services-page",
       category: "Specialty Printing",
       description: "Direct UV printing on promotional items, phone cases, and custom accessories.",
       image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop",
@@ -251,6 +204,7 @@ const TShirtPrintingServicesPage = () => {
     },
     {
       title: "Corporate Services",
+      path: "/corporate-services-page",
       category: "Business Solutions",
       description: "Comprehensive corporate branding and marketing material solutions.",
       image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop",
@@ -281,7 +235,7 @@ const TShirtPrintingServicesPage = () => {
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254700000000';
+    const phoneNumber = '+254791159618';
     const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information about bulk pricing and design options?`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -315,6 +269,31 @@ const TShirtPrintingServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
+
+
       <Header />
       
       <main className="pt-16">
@@ -352,17 +331,17 @@ const TShirtPrintingServicesPage = () => {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">H</span>
+                  <span className="text-white font-bold">LG</span>
                 </div>
                 <div>
-                  <span className="text-xl font-heading font-bold">Halo Creatives</span>
+                  <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
                 Your trusted partner for professional printing services in Nairobi. Quality, speed, and reliability in every project.
               </p>
               <div className="text-sm text-gray-400">
-                © {new Date().getFullYear()} Halo Creatives. All rights reserved.
+                © {new Date().getFullYear()} Luna Graphics. All rights reserved.
               </div>
             </div>
             
@@ -379,8 +358,8 @@ const TShirtPrintingServicesPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 700 000 000</li>
-                <li>info@halocreatives.co.ke</li>
+                <li>+254 791 159 618</li>
+                <li>info.lunagraphics@gmail.com</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
               </ul>

@@ -98,11 +98,11 @@ const ServiceDetails = ({ service }) => {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <Icon name="Phone" size={16} color="var(--color-accent)" />
-                    <span className="text-sm font-medium">+254 700 000 000</span>
+                    <span className="text-sm font-medium">+254 791 159 618</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Icon name="Mail" size={16} color="var(--color-accent)" />
-                    <span className="text-sm font-medium">info@halocreatives.co.ke</span>
+                    <span className="text-sm font-medium">info.lunagraphics@gmail.com</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Icon name="Clock" size={16} color="var(--color-accent)" />

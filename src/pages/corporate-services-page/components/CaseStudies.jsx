@@ -32,7 +32,7 @@ const CaseStudies = () => {
         'Achieved 30% cost savings through bulk production',
         'Maintained brand consistency across all materials'
       ],
-      testimonial: `Halo Creatives delivered exceptional quality and service during our campaign. Their ability to handle massive volumes while maintaining consistency was crucial to our success.`,
+      testimonial: `Luna Graphics delivered exceptional quality and service during our campaign. Their ability to handle massive volumes while maintaining consistency was crucial to our success.`,
       author: 'Campaign Manager',
       metrics: [
         { label: 'Items Produced', value: '750K+' },
@@ -57,7 +57,7 @@ const CaseStudies = () => {
         'Improved brand recognition by 45%',
         'Enhanced customer experience scores'
       ],
-      testimonial: `The professionalism and attention to detail shown by Halo Creatives during our rebranding was outstanding. They understood the importance of maintaining our operations while executing the transformation.`,
+      testimonial: `The professionalism and attention to detail shown by Luna Graphics during our rebranding was outstanding. They understood the importance of maintaining our operations while executing the transformation.`,
       author: 'Head of Marketing',
       metrics: [
         { label: 'Branches Updated', value: '150+' },
@@ -82,7 +82,7 @@ const CaseStudies = () => {
         'Established long-term partnerships with exhibitors',
         'Set new standard for trade show presentations'
       ],
-      testimonial: `Halo Creatives helped us present Kenya's manufacturing sector in the best possible light. The quality of materials and attention to detail impressed international buyers and elevated our country's image.`,
+      testimonial: `Luna Graphics helped us present Kenya's manufacturing sector in the best possible light. The quality of materials and attention to detail impressed international buyers and elevated our country's image.`,
       author: 'Exhibition Director',
       metrics: [
         { label: 'Companies Featured', value: '200+' },

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from '../service-detail-page/components/ServiceHero';
 import ServiceDetails from '../service-detail-page/components/ServiceDetails';
@@ -9,6 +12,7 @@ import PricingTable from '../service-detail-page/components/PricingTable';
 import RelatedServices from '../service-detail-page/components/RelatedServices';
 import ContactForm from '../service-detail-page/components/ContactForm';
 import Breadcrumb from '../service-detail-page/components/Breadcrumb';
+import { path } from 'd3';
 
 // === NEW COMPONENT: Quote Modal ===
 // This component handles capturing user info for a quote request.
@@ -121,71 +125,18 @@ const UVPrintingServicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState(null);
 
-
+const serviceData = services["uv-printing"];
   // UV Printing service specific data
-  const serviceData = {
-    id: 3,
-    title: "UV Printing Services",
-    category: "Specialty Printing",
-    description: "Advanced UV printing services for premium materials and custom applications offering exceptional durability, vibrant colors, and versatile substrate compatibility.",
-    detailedDescription: `Our UV printing services showcase cutting-edge technology that delivers superior print quality on an extensive range of materials. Unlike traditional printing methods, UV printing cures ink instantly using ultraviolet light, resulting in scratch-resistant, waterproof, and fade-resistant prints.\n\nWe specialize in direct-to-substrate printing on glass, metal, wood, acrylic, ceramics, and various rigid materials. This technology opens up unlimited creative possibilities for promotional items, signage, decorative panels, and custom applications that traditional printing cannot achieve.\n\nOur UV printing process is environmentally friendly, using eco-solvent inks with no volatile organic compounds (VOCs), making it safe for indoor applications and reducing environmental impact while maintaining exceptional print quality and durability.`,
-    heroImage: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop",
-    startingPrice: 800,
-    turnaround: "2-3 days",
-    minimumOrder: "1 piece",
-    keyFeatures: [
-      "Direct Material Printing",
-      "Instant Curing",
-      "Eco-Friendly Inks",
-      "Superior Durability"
-    ],
-    specifications: [
-      {
-        icon: "Layers",
-        title: "Substrate Range",
-        description: "Glass, metal, wood, acrylic, ceramics, and rigid materials"
-      },
-      {
-        icon: "Palette",
-        title: "Color Gamut",
-        description: "Wide color gamut with vibrant, true-to-life reproduction"
-      },
-      {
-        icon: "Shield",
-        title: "Durability",
-        description: "Scratch, water, and UV resistant with long-lasting colors"
-      },
-      {
-        icon: "Zap",
-        title: "Resolution",
-        description: "Up to 1200 DPI for fine detail reproduction"
-      },
-      {
-        icon: "Leaf",
-        title: "Eco-Friendly",
-        description: "VOC-free inks with minimal environmental impact"
-      },
-      {
-        icon: "Settings",
-        title: "Finish Options",
-        description: "Matte, gloss, textured, and special effect finishes"
-      }
-    ],
-    materials: [
-      "Tempered Glass",
-      "Acrylic Sheets",
-      "Aluminum Panels",
-      "Wood Substrates",
-      "Ceramic Tiles",
-      "PVC Boards",
-      "Metal Sheets",
-      "Foam Board",
-      "Corrugated Plastic",
-      "Polycarbonate",
-      "Dibond",
-      "Mirror Surfaces"
-    ]
-  };
+ 
+
+
+  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high quality machines with high precision to produce quality output.`;
+  const pageUrl = `https://lunagraphics.co.ke/uv-printing-services-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
 
   const equipmentData = [
     {
@@ -341,6 +292,7 @@ const UVPrintingServicesPage = () => {
   const relatedServicesData = [
     {
       title: "Large Format Printing",
+      path: "/service-detail-page",
       category: "Digital Printing",
       description: "Professional large format printing for banners, posters, and signage applications.",
       image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
@@ -350,6 +302,7 @@ const UVPrintingServicesPage = () => {
     },
     {
       title: "CNC Cutting",
+      path:"/cnc-cutting-services-page",
       category: "Fabrication",
       description: "Precision CNC cutting services for signage, displays, and custom fabrication projects.",
       image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop",
@@ -359,6 +312,7 @@ const UVPrintingServicesPage = () => {
     },
     {
       title: "Laser Engraving",
+      path:" /laser-cutting-services-page",
       category: "Engraving",
       description: "Professional laser engraving services for promotional items and custom applications.",
       image: "https://images.unsplash.com/photo-1581092918484-8313de0f6f9d?w=400&h=300&fit=crop",
@@ -443,6 +397,31 @@ const UVPrintingServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+
+            <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
+
+
       <Header />
       
       <main className="pt-16">
@@ -488,17 +467,17 @@ const UVPrintingServicesPage = () => {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">H</span>
+                  <span className="text-white font-bold">L</span>
                 </div>
                 <div>
-                  <span className="text-xl font-heading font-bold">Halo Creatives</span>
+                  <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
                 Your trusted partner for professional printing services in Nairobi. Quality, speed, and reliability in every project.
               </p>
               <div className="text-sm text-gray-400">
-                © {new Date().getFullYear()} Halo Creatives. All rights reserved.
+                © {new Date().getFullYear()} Luna Graphics. All rights reserved.
               </div>
             </div>
             

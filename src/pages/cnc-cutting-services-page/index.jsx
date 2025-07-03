@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from './components/ServiceHero';
 import ServiceDetails from './components/ServiceDetails';
@@ -10,74 +13,21 @@ import RelatedServices from './components/RelatedServices';
 import ContactForm from './components/ContactForm';
 import Breadcrumb from './components/Breadcrumb';
 
+
 const CNCCuttingServicesPage = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
 
   // CNC Cutting service data
-  const serviceData = {
-    id: 2,
-    title: "CNC Cutting Services",
-    category: "Precision Fabrication",
-    description: "Professional CNC cutting services for precise fabrication of various materials including wood, acrylic, metal, and foam with custom design capabilities.",
-    detailedDescription: `Our CNC cutting services demonstrate precision cutting capabilities for various materials to serve clients requiring accurate fabrication and custom manufacturing solutions. Using state-of-the-art CNC technology, we deliver exceptional precision and repeatability for your projects.\n\nWhether you need prototypes, architectural elements, signage, or custom parts, our advanced CNC machines handle complex geometries with tight tolerances. From intricate decorative panels to functional components, we transform your digital designs into physical reality with unmatched accuracy.\n\nOur experienced technicians work closely with you to optimize your designs for CNC cutting, ensuring the best possible results while meeting your specifications, timeline, and budget requirements.`,
-    heroImage: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&h=600&fit=crop",
-    startingPrice: 800,
-    turnaround: "3-5 days",
-    minimumOrder: "1 piece",
-    keyFeatures: [
-      "Precision Cutting",
-      "Multiple Materials",
-      "Custom Shapes",
-      "CAD Compatible"
-    ],
-    specifications: [
-      {
-        icon: "Maximize",
-        title: "Cutting Area",
-        description: "Up to 2.5m x 1.5m cutting bed with 200mm material thickness"
-      },
-      {
-        icon: "Target",
-        title: "Precision",
-        description: "±0.1mm accuracy with smooth edge finishing"
-      },
-      {
-        icon: "Layers",
-        title: "Material Compatibility",
-        description: "Wood, acrylic, metal, foam, plastic, and composite materials"
-      },
-      {
-        icon: "Zap",
-        title: "Cutting Speed",
-        description: "High-speed cutting with optimized feed rates"
-      },
-      {
-        icon: "Settings",
-        title: "Tool Options",
-        description: "Various cutting tools for different materials and finishes"
-      },
-      {
-        icon: "FileText",
-        title: "File Support",
-        description: "CAD, DXF, DWG, and vector file format compatibility"
-      }
-    ],
-    materials: [
-      "MDF & Plywood",
-      "Acrylic Sheets",
-      "Aluminum Composite",
-      "Foam Board",
-      "PVC Sheets",
-      "Polycarbonate",
-      "Wood Panels",
-      "Metal Sheets",
-      "Corrugated Plastic",
-      "Cardboard",
-      "Rubber Sheets",
-      "Composite Materials"
-    ]
-  };
+  const serviceData = services["cnc-cutting-services"];
+
+  // 2. DEFINE SEO VARIABLES FROM YOUR EXISTING DATA
+  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom fabrication project today at Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/cnc-cutting-services-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
 
   const equipmentData = [
     {
@@ -93,7 +43,7 @@ const CNCCuttingServicesPage = () => {
         "Dust collection system"
       ]
     },
-    {
+   /* {
       name: "Precision Spindle System",
       description: "High-speed spindle system for smooth cuts and excellent surface finish.",
       image: "https://images.unsplash.com/photo-1563906267088-b029e7101114?w=600&h=400&fit=crop",
@@ -105,7 +55,7 @@ const CNCCuttingServicesPage = () => {
         "Variable speed control",
         "Low vibration operation"
       ]
-    },
+    },*/
     {
       name: "CAD/CAM Software Suite",
       description: "Professional design and manufacturing software for optimal cutting paths.",
@@ -315,6 +265,29 @@ const CNCCuttingServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+            {/* 3. ADD THE HELMET COMPONENT RIGHT AT THE TOP */}
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
       <Header />
       
       <main className="pt-16">

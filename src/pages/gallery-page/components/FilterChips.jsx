@@ -60,7 +60,7 @@ const FilterChips = ({
   const activeFilterCount = activeFilters.length;
 
   return (
-    <div className="bg-background border-b border-border sticky top-16 z-50">
+      <div className={`bg-background border-b border-border ${!isMobile ? 'sticky top-16 z-50' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Filter Header */}
         <div className="flex items-center justify-between mb-4">

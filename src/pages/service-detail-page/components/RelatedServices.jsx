@@ -1,9 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate for navigation
 import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
-const RelatedServices = ({ relatedServices, onServiceClick }) => {
+// 2. The onServiceClick prop is removed, as the component handles its own navigation
+const RelatedServices = ({ relatedServices }) => {
+  const navigate = useNavigate(); // 3. Initialize the navigate function
+
+  // 4. Create an internal handler to navigate to the correct path
+  const handleNavigation = (path) => {
+    // Check if a path is provided to avoid errors
+    if (path) {
+      navigate(path);
+      window.scrollTo(0, 0); // A good practice to scroll to the top of the new page
+    } else {
+      console.error("Navigation error: No path provided for this service.");
+    }
+  };
+
   return (
     <div className="bg-background py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,15 +27,16 @@ const RelatedServices = ({ relatedServices, onServiceClick }) => {
             Related Services
           </h2>
           <p className="text-lg text-text-secondary max-w-3xl mx-auto">
-            Discover other printing services that complement your current project needs.
+            Complement your project with our comprehensive range of fabrication and printing services.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {relatedServices.map((service, index) => (
+          {/* We map over the services data to create a detailed card for each one */}
+          {Array.isArray(relatedServices) && relatedServices.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col"
             >
               <div className="aspect-video relative overflow-hidden">
                 <Image
@@ -35,11 +51,11 @@ const RelatedServices = ({ relatedServices, onServiceClick }) => {
                 </div>
               </div>
               
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-heading font-bold text-primary mb-2">
                   {service.title}
                 </h3>
-                <p className="text-text-secondary text-sm mb-4 leading-relaxed">
+                <p className="text-text-secondary text-sm mb-4 leading-relaxed flex-grow">
                   {service.description}
                 </p>
                 
@@ -75,11 +91,12 @@ const RelatedServices = ({ relatedServices, onServiceClick }) => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => onServiceClick(service)}
+                  // 5. Use the internal handler, passing the service's unique path
+                  onClick={() => handleNavigation(service.path)}
                   iconName="ArrowRight"
                   iconPosition="right"
                   fullWidth
-                  className="border-primary text-primary hover:bg-primary hover:text-white"
+                  className="border-primary text-primary hover:bg-primary hover:text-white mt-auto"
                 >
                   Learn More
                 </Button>
@@ -88,6 +105,7 @@ const RelatedServices = ({ relatedServices, onServiceClick }) => {
           ))}
         </div>
         
+        {/* This "View All Services" section can be kept if desired */}
         <div className="mt-12 text-center">
           <div className="bg-gradient-to-r from-primary to-accent rounded-lg p-8 text-white">
             <h3 className="text-2xl font-heading font-bold mb-4">
@@ -96,14 +114,7 @@ const RelatedServices = ({ relatedServices, onServiceClick }) => {
             <p className="text-lg mb-6 opacity-90">
               Bundle your printing needs and save up to 20% on your total order.
             </p>
-            <Button
-              variant="secondary"
-              size="lg"
-              iconName="Package"
-              iconPosition="left"
-            >
-              View All Services
-            </Button>
+            
           </div>
         </div>
       </div>

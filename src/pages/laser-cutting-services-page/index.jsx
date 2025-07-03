@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from './components/ServiceHero';
 import ServiceDetails from './components/ServiceDetails';
@@ -14,70 +17,19 @@ const LaserCuttingServicesPage = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
 
+
+  const serviceData = services['laser-cutting'];
   // Laser Cutting service data
-  const serviceData = {
-    id: 3,
-    title: "Laser Cutting Services",
-    category: "Precision Laser Technology",
-    description: "Professional laser cutting services for intricate designs and detailed fabrication on various materials including wood, acrylic, leather, and fabric with precision and design complexity capabilities.",
-    detailedDescription: `Our Laser Cutting Services highlight precision laser cutting technology for intricate designs and detailed fabrication to attract clients requiring high-accuracy cutting solutions. Using advanced laser technology, we deliver exceptional precision and detail for your most demanding projects.\n\nWhether you need prototypes, decorative elements, signage, or custom parts, our laser cutting machines handle the most intricate patterns and precise cuts with minimal material waste. From delicate jewelry components to architectural details, we transform your vector designs into reality with unmatched accuracy.\n\nOur experienced technicians work closely with you to optimize your designs for laser cutting, ensuring the best possible results while maintaining design integrity, meeting your timeline and budget requirements.`,
-    heroImage: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop",
-    startingPrice: 600,
-    turnaround: "2-3 days",
-    minimumOrder: "1 piece",
-    keyFeatures: [
-      "Intricate Patterns",
-      "High Precision",
-      "Multiple Materials",
-      "Vector Compatible"
-    ],
-    specifications: [
-      {
-        icon: "Maximize",
-        title: "Cutting Area",
-        description: "Up to 1.3m x 0.9m cutting bed with precision positioning"
-      },
-      {
-        icon: "Target",
-        title: "Precision",
-        description: "±0.05mm accuracy with clean, sealed edges"
-      },
-      {
-        icon: "Layers",
-        title: "Material Range",
-        description: "Wood, acrylic, leather, fabric, cardboard, and thin metals"
-      },
-      {
-        icon: "Zap",
-        title: "Laser Power",
-        description: "Variable power settings for different materials and thicknesses"
-      },
-      {
-        icon: "Settings",
-        title: "Design Complexity",
-        description: "Handles intricate patterns and fine details with ease"
-      },
-      {
-        icon: "FileText",
-        title: "File Formats",
-        description: "Vector files: AI, SVG, DXF, PDF for optimal results"
-      }
-    ],
-    materials: [
-      "Wood & Plywood",
-      "Acrylic Sheets",
-      "Leather & Faux Leather",
-      "Fabric & Textiles",
-      "Cardboard & Paper",
-      "Foam Core",
-      "Rubber Sheets",
-      "Thin Metal Sheets",
-      "Cork Sheets",
-      "Felt Material",
-      "Mylar & Films",
-      "Veneer Sheets"
-    ]
-  };
+
+
+
+  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom project today at Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/laser-cutting-services-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
 
   const equipmentData = [
     {
@@ -281,7 +233,7 @@ const LaserCuttingServicesPage = () => {
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254700000000';
+    const phoneNumber = '+254791159618';
     const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information?`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -302,6 +254,29 @@ const LaserCuttingServicesPage = () => {
   if (!selectedService) {
     return (
       <div className="min-h-screen bg-background">
+             
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
         <Header />
         <div className="pt-16 flex items-center justify-center min-h-screen">
           <div className="text-center">
@@ -355,14 +330,14 @@ const LaserCuttingServicesPage = () => {
                   <span className="text-white font-bold">H</span>
                 </div>
                 <div>
-                  <span className="text-xl font-heading font-bold">Halo Creatives</span>
+                  <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
                 Your trusted partner for professional printing services in Nairobi. Quality, speed, and reliability in every project.
               </p>
               <div className="text-sm text-gray-400">
-                © {new Date().getFullYear()} Halo Creatives. All rights reserved.
+                © {new Date().getFullYear()} Luna Graphics. All rights reserved.
               </div>
             </div>
             
@@ -379,8 +354,8 @@ const LaserCuttingServicesPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 700 000 000</li>
-                <li>info@halocreatives.co.ke</li>
+                <li>+254 791 159 618</li>
+                <li>info.lunagraphics@gmail.com</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
               </ul>

@@ -57,7 +57,7 @@ const ServiceHero = ({ service, onGetQuote, onWhatsAppChat }) => {
                 Get Free Quote
               </Button>
               <Button
-                variant="outline"
+                variant="accent"
                 size="lg"
                 iconName="MessageCircle"
                 iconPosition="left"

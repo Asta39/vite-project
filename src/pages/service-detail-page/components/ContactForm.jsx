@@ -52,29 +52,48 @@ const ContactForm = ({ serviceName }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  // --- UPDATED SUBMIT HANDLER FOR WHATSAPP ---
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: serviceName || '',
-        projectDetails: '',
-        timeline: '',
-        budget: ''
-      });
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+
+    const phoneNumber = '254791159618'; // Your WhatsApp number
+
+    const fieldLabels = {
+        name: 'Full Name',
+        email: 'Email',
+        phone: 'Phone',
+        company: 'Company',
+        service: 'Service Required',
+        projectDetails: 'Project Details',
+        timeline: 'Timeline',
+        budget: 'Budget Range'
+    };
+
+    let messageBody = `*📄 New General Quote Request 📄*\n\n`;
+
+    // Loop through all form data and add it to the message if it exists
+    for (const key in formData) {
+        const label = fieldLabels[key];
+        const value = formData[key];
+
+        if (value && label) { // Only add fields that have a value
+            messageBody += `*${label}:* ${value}\n`;
+        }
     }
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageBody)}`;
+    window.open(whatsappUrl, '_blank');
+
+    setIsSubmitting(false);
+    setSubmitStatus('success');
+
+    // Optional: Reset form after submission
+    setFormData({
+      name: '', email: '', phone: '', company: '',
+      service: serviceName || '', projectDetails: '',
+      timeline: '', budget: ''
+    });
   };
 
   return (
@@ -133,11 +152,11 @@ const ContactForm = ({ serviceName }) => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Icon name="Phone" size={16} color="var(--color-accent)" />
-                  <span className="text-sm">+254 700 000 000</span>
+                  <span className="text-sm">+254 791 159 618</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Icon name="Mail" size={16} color="var(--color-accent)" />
-                  <span className="text-sm">info@halocreatives.co.ke</span>
+                  <span className="text-sm">info.lunagraphics@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Icon name="MapPin" size={16} color="var(--color-accent)" />
@@ -153,10 +172,10 @@ const ContactForm = ({ serviceName }) => {
               <div className="mb-6 p-4 bg-success-50 border border-success-200 rounded-lg">
                 <div className="flex items-center space-x-2">
                   <Icon name="CheckCircle" size={20} color="var(--color-success)" />
-                  <span className="text-success font-semibold">Quote request submitted successfully!</span>
+                  <span className="text-success font-semibold">Message Ready!</span>
                 </div>
                 <p className="text-success-700 text-sm mt-2">
-                  We'll get back to you within 2 hours with your detailed quote.
+                  Your quote request is ready. Please press 'Send' in the new WhatsApp tab that opened.
                 </p>
               </div>
             )}
@@ -168,7 +187,7 @@ const ContactForm = ({ serviceName }) => {
                   <span className="text-error font-semibold">Something went wrong!</span>
                 </div>
                 <p className="text-error-700 text-sm mt-2">
-                  Please try again or contact us directly at +254 700 000 000.
+                  There was an error preparing your message. Please try again or contact us directly.
                 </p>
               </div>
             )}
@@ -180,12 +199,7 @@ const ContactForm = ({ serviceName }) => {
                     Full Name *
                   </label>
                   <Input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your full name"
-                    required
+                    type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter your full name" required
                   />
                 </div>
                 
@@ -194,12 +208,7 @@ const ContactForm = ({ serviceName }) => {
                     Email Address *
                   </label>
                   <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    required
+                    type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter your email" required
                   />
                 </div>
               </div>
@@ -210,12 +219,7 @@ const ContactForm = ({ serviceName }) => {
                     Phone Number *
                   </label>
                   <Input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="+254 700 000 000"
-                    required
+                    type="tel" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="+254 791 159 618" required
                   />
                 </div>
                 
@@ -224,11 +228,7 @@ const ContactForm = ({ serviceName }) => {
                     Company (Optional)
                   </label>
                   <Input
-                    type="text"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleInputChange}
-                    placeholder="Your company name"
+                    type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Your company name"
                   />
                 </div>
               </div>
@@ -238,10 +238,7 @@ const ContactForm = ({ serviceName }) => {
                   Service Required *
                 </label>
                 <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleInputChange}
-                  required
+                  name="service" value={formData.service} onChange={handleInputChange} required
                   className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 >
                   <option value="">Select a service</option>
@@ -256,12 +253,8 @@ const ContactForm = ({ serviceName }) => {
                   Project Details *
                 </label>
                 <textarea
-                  name="projectDetails"
-                  value={formData.projectDetails}
-                  onChange={handleInputChange}
-                  placeholder="Describe your project requirements, dimensions, quantities, materials, etc."
-                  required
-                  rows={4}
+                  name="projectDetails" value={formData.projectDetails} onChange={handleInputChange}
+                  placeholder="Describe your project requirements, dimensions, quantities, materials, etc." required rows={4}
                   className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                 />
               </div>
@@ -272,9 +265,7 @@ const ContactForm = ({ serviceName }) => {
                     Timeline
                   </label>
                   <select
-                    name="timeline"
-                    value={formData.timeline}
-                    onChange={handleInputChange}
+                    name="timeline" value={formData.timeline} onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
                     <option value="">Select timeline</option>
@@ -289,9 +280,7 @@ const ContactForm = ({ serviceName }) => {
                     Budget Range
                   </label>
                   <select
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
+                    name="budget" value={formData.budget} onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
                     <option value="">Select budget range</option>
@@ -303,16 +292,9 @@ const ContactForm = ({ serviceName }) => {
               </div>
               
               <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                loading={isSubmitting}
-                disabled={isSubmitting}
-                fullWidth
-                iconName="Send"
-                iconPosition="right"
+                type="submit" variant="primary" size="lg" disabled={isSubmitting} fullWidth iconName="Send" iconPosition="right"
               >
-                {isSubmitting ? 'Submitting...' : 'Get Free Quote'}
+                {isSubmitting ? 'Preparing Message...' : 'Get Quote via WhatsApp'}
               </Button>
               
               <p className="text-xs text-text-muted text-center">

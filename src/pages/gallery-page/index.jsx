@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import FilterChips from './components/FilterChips';
 import SearchBar from './components/SearchBar';
@@ -23,6 +26,13 @@ const GalleryPage = () => {
 
   const projectsPerPage = 12;
 
+    const pageTitle = `Luna Graphics Gallery in Nairobi | Luna Graphics`;
+  const pageDescription = `Luna Graphics Gallery. Meet our esteemed gallery of past works from Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/gallery-page`; // Use the actual URL for this page
+  const imageUrl = "https://lunagraphics.co.ke/social-sharing-image.jpg"; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
   // Mock project data
   const mockProjects = [
     {
@@ -35,7 +45,7 @@ const GalleryPage = () => {
       material: "vinyl",
       scale: "large",
       turnaroundTime: "5 days",
-      completedDate: "2024-01-15",
+      completedDate: "2023-01-15",
       client: "Safaricom Ltd",
       testimonial: {
         content: "Exceptional quality and timely delivery. The banners looked professional and helped make our branch opening a huge success.",
@@ -52,7 +62,7 @@ const GalleryPage = () => {
       material: "acrylic",
       scale: "small",
       turnaroundTime: "3 days",
-      completedDate: "2024-01-20",
+      completedDate: "2022-01-20",
       client: "The Wanjiku Wedding",
       testimonial: {
         content: "Beautiful work! The acrylic signs added such an elegant touch to our special day. Highly recommended!",
@@ -69,7 +79,7 @@ const GalleryPage = () => {
       material: "acrylic",
       scale: "medium",
       turnaroundTime: "4 days",
-      completedDate: "2024-01-25",
+      completedDate: "2022-01-25",
       client: "Java House Africa",
       testimonial: {
         content: "The menu boards have withstood Nairobi weather perfectly. Colors remain vibrant after months of use.",
@@ -86,7 +96,7 @@ const GalleryPage = () => {
       material: "wood",
       scale: "medium",
       turnaroundTime: "7 days",
-      completedDate: "2024-02-01",
+      completedDate: "2020-02-01",
       client: "Brookhouse School",
       testimonial: {
         content: "The wooden awards were absolutely stunning. The laser engraving was precise and the finish was perfect.",
@@ -120,7 +130,7 @@ const GalleryPage = () => {
       material: "acrylic",
       scale: "large",
       turnaroundTime: "10 days",
-      completedDate: "2024-02-10",
+      completedDate: "2017-02-10",
       client: "Nairobi Hospital",
       testimonial: {
         content: "The signage system has greatly improved navigation in our facility. Professional quality and installation.",
@@ -137,7 +147,7 @@ const GalleryPage = () => {
       material: "vinyl",
       scale: "large",
       turnaroundTime: "4 days",
-      completedDate: "2024-02-15",
+      completedDate: "2019-02-15",
       client: "Nakumatt Holdings",
       testimonial: {
         content: "The graphics significantly improved our store's visual appeal and helped increase foot traffic and sales.",
@@ -154,7 +164,7 @@ const GalleryPage = () => {
       material: "paper",
       scale: "medium",
       turnaroundTime: "2 days",
-      completedDate: "2024-02-20",
+      completedDate: "2025-02-20",
       client: "Architectural Associates",
       testimonial: {
         content: "Precise and professional plotting service. The technical drawings were exactly what we needed for our presentation.",
@@ -171,7 +181,7 @@ const GalleryPage = () => {
       material: "vinyl",
       scale: "large",
       turnaroundTime: "3 days",
-      completedDate: "2024-02-25",
+      completedDate: "2020-02-25",
       client: "East African Breweries",
       testimonial: {
         content: "The backdrop looked amazing on TV and the banners withstood the outdoor conditions perfectly.",
@@ -188,7 +198,7 @@ const GalleryPage = () => {
       material: "metal",
       scale: "medium",
       turnaroundTime: "8 days",
-      completedDate: "2024-03-01",
+      completedDate: "2022-03-01",
       client: "Kenyatta University",
       testimonial: {
         content: "The metal signage looks professional and durable. Perfect for our new building's modern aesthetic.",
@@ -205,7 +215,7 @@ const GalleryPage = () => {
       material: "fabric",
       scale: "bulk",
       turnaroundTime: "5 days",
-      completedDate: "2024-03-05",
+      completedDate: "2020-03-05",
       client: "Gor Mahia Supporters Club",
       testimonial: {
         content: "Amazing quality jerseys! The colors are vibrant and the fabric is comfortable for match days.",
@@ -222,7 +232,7 @@ const GalleryPage = () => {
       material: "acrylic",
       scale: "large",
       turnaroundTime: "6 days",
-      completedDate: "2024-03-10",
+      completedDate: "2017-03-10",
       client: "Serena Hotels",
       testimonial: {
         content: "The signage perfectly complements our hotel\'s luxury brand. Guests frequently compliment the elegant design.",
@@ -431,6 +441,30 @@ const GalleryPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+
+            {/* 3. ADD THE HELMET COMPONENT RIGHT AT THE TOP */}
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
       <Header />
       
       {/* Page Header */}

@@ -64,7 +64,7 @@ const ContactPage = () => {
         <meta property="og:title" content="Contact Luna Graphics - Professional Printing Services" />
         <meta property="og:description" content="Contact Luna Graphics for all your printing needs. Located in Nairobi CBD with multiple contact options including phone, WhatsApp, and email." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://lunagraphics.co.ke/contact" />
+        <link rel="canonical" href="https://lunagraphics.co.ke/contact-page" />
       </Helmet>
 
       <Header />

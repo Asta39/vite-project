@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = '+254700000000';
+    const phoneNumber = '+254791159618';
     const message = 'Hello! I would like to inquire about your printing services.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -19,10 +19,10 @@ const Footer = () => {
 
   const handleSocialClick = (platform) => {
     const urls = {
+      instagram: 'https://www.instagram.com/lunagraphics_ke?igsh=MWY4NDZreXczM25meg==',
       facebook: 'https://facebook.com/halocreatives',
-      instagram: 'https://instagram.com/halocreatives',
-      twitter: 'https://twitter.com/halocreatives',
-      linkedin: 'https://linkedin.com/company/halocreatives'
+      tiktok: 'https://www.tiktok.com/@lunagraphics_k3?_r=1&_d=ejmc62jig91h09&sec_uid=MS4wLjABAAAAZlbjAWOqOjTPynxBOV67SWTQr1V5ENcqjaS35yRfclTqT0nTu4UsCmIjaMZfJ7Jz&share_author_id=7183680267814978566&sharer_language=en&source=h5_m&u_code=e5al48ed8eg3bb&timestamp=1751362691&user_id=7176488124331426822&sec_user_id=MS4wLjABAAAATSIAFkAgEMhoE8rAvPr4ZJc6P66T1hwfNiIzpFFuuvqKGtTCWttlkw1fMcvoDTqM&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7518431460690003768&share_link_id=a40a8793-7ad4-47bc-bbe8-7b06401ba888&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=ChatShellActivity%2Cb5836&social_share_type=5&enable_checksum=1',
+      pinterest: 'https://pin.it/3HZXaQKuX'
     };
     window.open(urls[platform], '_blank');
   };
@@ -51,8 +51,8 @@ const Footer = () => {
         <Icon name="Printer" size={24} color="white" />
       </div>
       <div className="flex flex-col">
-        <span className="text-xl font-heading font-bold text-primary">Halo</span>
-        <span className="text-sm font-heading font-semibold text-secondary">Creatives</span>
+        <span className="text-xl font-heading font-bold text-accent">Luna</span>
+        <span className="text-sm font-heading font-semibold text-secondary">Graphics</span>
       </div>
     </div>
   );
@@ -75,26 +75,26 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Icon name="MapPin" size={16} color="var(--color-accent)" />
                 <span className="text-sm text-surface-300">
-                  Industrial Area, Nairobi, Kenya
+                  Kweria Road, Nairobi, Kenya
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Icon name="Phone" size={16} color="var(--color-accent)" />
-                <span className="text-sm text-surface-300">+254 700 000 000</span>
+                <span className="text-sm text-surface-300">+254 791 159 618</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Icon name="Mail" size={16} color="var(--color-accent)" />
-                <span className="text-sm text-surface-300">info@halocreatives.co.ke</span>
+                <span className="text-sm text-surface-300">info.lunagraphics@gmail.com</span>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="flex space-x-4">
               {[
-                { icon: 'Facebook', platform: 'facebook' },
                 { icon: 'Instagram', platform: 'instagram' },
-                { icon: 'Twitter', platform: 'twitter' },
-                { icon: 'Linkedin', platform: 'linkedin' }
+                { icon: 'Facebook', platform: 'facebook' },
+                { icon: 'TikTok', platform: 'tiktok' },
+                { icon: 'Pinterest', platform: 'pinterest' }
               ].map((social) => (
                 <button
                   key={social.platform}
@@ -176,7 +176,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-surface-300">
-              © {currentYear} Halo Creatives. All rights reserved.
+              © {currentYear} Luna Graphics. All rights reserved.
             </div>
             
             <div className="flex items-center space-x-6 text-sm text-surface-300">

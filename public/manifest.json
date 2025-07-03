@@ -1,15 +1,26 @@
 {
-  "short_name": "halo_creatives_website",
-  "name": "halo_creatives_website",
+  "short_name": "Luna Graphics",
+  "name": "Luna Graphics | Printing & Branding in Nairobi",
   "icons": [
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#003366",
   "background_color": "#ffffff"
 }

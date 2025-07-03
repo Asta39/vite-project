@@ -12,7 +12,7 @@ const GoogleReviews = () => {
       avatar: "https://randomuser.me/api/portraits/women/32.jpg",
       rating: 5,
       date: "2 weeks ago",
-      review: `Excellent service! Halo Creatives printed our company banners for a trade show and the quality was outstanding. The colors were vibrant and the material was durable. They delivered on time and the pricing was very competitive. Highly recommend for any business printing needs.`,
+      review: `Excellent service! Luna Graphics printed our company banners for a trade show and the quality was outstanding. The colors were vibrant and the material was durable. They delivered on time and the pricing was very competitive. Highly recommend for any business printing needs.`,
       service: "Large Format Printing"
     },
     {
@@ -21,7 +21,7 @@ const GoogleReviews = () => {
       avatar: "https://randomuser.me/api/portraits/men/45.jpg",
       rating: 5,
       date: "1 month ago",
-      review: `I needed custom t-shirts for my team and Halo Creatives exceeded my expectations. The print quality is excellent and hasn't faded after multiple washes. The staff was professional and helped with the design. Will definitely use them again for future projects.`,
+      review: `I needed custom t-shirts for my team and Luna Graphics exceeded my expectations. The print quality is excellent and hasn't faded after multiple washes. The staff was professional and helped with the design. Will definitely use them again for future projects.`,
       service: "T-shirt Printing"
     },
     {
@@ -39,7 +39,7 @@ const GoogleReviews = () => {
       avatar: "https://randomuser.me/api/portraits/men/52.jpg",
       rating: 5,
       date: "2 months ago",
-      review: `Halo Creatives handled our architectural plotting needs with precision. The technical drawings were clear and accurate. They work with various CAD formats and the output quality is consistently excellent. Reliable partner for our engineering firm.`,
+      review: `Luna Graphics handled our architectural plotting needs with precision. The technical drawings were clear and accurate. They work with various CAD formats and the output quality is consistently excellent. Reliable partner for our engineering firm.`,
       service: "Plotting Services"
     },
     {

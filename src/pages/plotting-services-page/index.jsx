@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from '../service-detail-page/components/ServiceHero';
 import ServiceDetails from '../service-detail-page/components/ServiceDetails';
@@ -14,68 +17,17 @@ const PlottingServicesPage = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
 
+  const serviceData = services["plotting-services"];
   // Plotting service specific data
-  const serviceData = {
-    id: 2,
-    title: "Plotting Services",
-    category: "Technical Drawing",
-    description: "Professional plotting services for technical drawings, architectural plans, engineering drawings, and CAD documentation with precision and clarity.",
-    detailedDescription: `Our plotting services provide high-quality technical drawing reproduction for engineering, architectural, and construction professionals. Using advanced large format plotters, we deliver crisp, accurate plots from A4 to A0 sizes.\n\nWhether you need architectural blueprints, engineering schematics, construction drawings, or CAD documentation, our plotting service ensures every line and detail is reproduced with precision. We work with various file formats and provide fast turnaround times for urgent projects.\n\nOur experienced team understands the critical nature of technical documentation and maintains strict quality control to ensure your plots meet professional standards and specifications.`,
-    heroImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
-    startingPrice: 200,
-    turnaround: "Same day",
-    minimumOrder: "1 sheet",
-    keyFeatures: [
-      "High Precision Plotting",
-      "Multiple Paper Sizes",
-      "CAD File Support",
-      "Fast Turnaround"
-    ],
-    specifications: [
-      {
-        icon: "Maximize",
-        title: "Paper Sizes",
-        description: "A4, A3, A2, A1, A0 plotting capabilities"
-      },
-      {
-        icon: "Target",
-        title: "Precision",
-        description: "±0.1mm accuracy for technical drawings"
-      },
-      {
-        icon: "FileText",
-        title: "File Formats",
-        description: "DWG, DXF, PDF, PLT, and various CAD formats"
-      },
-      {
-        icon: "Zap",
-        title: "Resolution",
-        description: "Up to 2400 DPI for crisp line work"
-      },
-      {
-        icon: "Clock",
-        title: "Speed",
-        description: "A0 plots in under 2 minutes"
-      },
-      {
-        icon: "Archive",
-        title: "Paper Types",
-        description: "Bond, vellum, film, and specialty media options"
-      }
-    ],
-    materials: [
-      "20lb Bond Paper",
-      "24lb Bond Paper",
-      "Vellum Paper",
-      "Polyester Film",
-      "Translucent Bond",
-      "Photo Paper",
-      "Recycled Paper",
-      "Heavyweight Paper",
-      "Coated Paper",
-      "Archival Paper"
-    ]
-  };
+  
+   
+  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for your custom plotting projects. Get a free quote for your custom project today at Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/plotting-services-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
 
   const equipmentData = [
     {
@@ -231,7 +183,7 @@ const PlottingServicesPage = () => {
   const relatedServicesData = [
     {
       title: "Large Format Printing",
-      category: "Digital Printing",
+      category: "Branding and Printing",
       description: "Professional large format printing for banners, posters, and signage applications.",
       image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
       startingPrice: 500,
@@ -239,22 +191,24 @@ const PlottingServicesPage = () => {
       features: ["High Resolution", "Weather Resistant", "Custom Sizes"]
     },
     {
-      title: "Lamination Services",
-      category: "Finishing",
-      description: "Professional lamination services to protect and enhance your technical drawings.",
+      title: "UV printing services",
+      path: "/uv-printing-services-page",
+      category: "Production",
+      description: "Professional UV printing services to produce impactful products.",
       image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
-      startingPrice: 100,
-      turnaround: "Same day",
-      features: ["Matte & Gloss Options", "Various Thicknesses", "Document Protection"]
+      startingPrice: 800,
+      turnaround: "2-3 days",
+      features: ["Tampered glass", "Scratch, water and UV resistant", "Eco friendly inks"]
     },
     {
-      title: "Mounting Services",
-      category: "Finishing",
-      description: "Professional mounting and display solutions for technical drawings and plans.",
+      title: "CNC cutting services",
+      path: "/ cnc-cutting-services-page",
+      category: "Production",
+      description: "Professional CNC cutting services for precise fabrication of various materials.",
       image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop",
-      startingPrice: 300,
-      turnaround: "2-3 days",
-      features: ["Foam Board Mounting", "Aluminum Mounting", "Custom Framing"]
+      startingPrice: 800,
+      turnaround: "3-5 days",
+      features: ["Precision cutting", "Multiple materials", "Custom shapes"]
     }
   ];
 
@@ -279,7 +233,7 @@ const PlottingServicesPage = () => {
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254700000000';
+    const phoneNumber = '254791159618';
     const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information?`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -293,6 +247,31 @@ const PlottingServicesPage = () => {
   if (!selectedService) {
     return (
       <div className="min-h-screen bg-background">
+
+          
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
+
         <Header />
         <div className="pt-16 flex items-center justify-center min-h-screen">
           <div className="text-center">
@@ -346,14 +325,14 @@ const PlottingServicesPage = () => {
                   <span className="text-white font-bold">H</span>
                 </div>
                 <div>
-                  <span className="text-xl font-heading font-bold">Halo Creatives</span>
+                  <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
                 Your trusted partner for professional printing services in Nairobi. Quality, speed, and reliability in every project.
               </p>
               <div className="text-sm text-gray-400">
-                © {new Date().getFullYear()} Halo Creatives. All rights reserved.
+                © {new Date().getFullYear()} Luna Graphics. All rights reserved.
               </div>
             </div>
             
@@ -370,8 +349,8 @@ const PlottingServicesPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 700 000 000</li>
-                <li>info@halocreatives.co.ke</li>
+                <li>+254 791 159 618</li>
+                <li>info.lunagraphics@gmail.com</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
               </ul>

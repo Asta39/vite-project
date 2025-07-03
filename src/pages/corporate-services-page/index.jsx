@@ -1,4 +1,7 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import HeroSection from './components/HeroSection';
 import ServicePackages from './components/ServicePackages';
@@ -7,9 +10,43 @@ import CaseStudies from './components/CaseStudies';
 import ComplianceSection from './components/ComplianceSection';
 import CorporateQuoteForm from './components/CorporateQuoteForm';
 
+
+const pageTitle = `Corporate Services in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert corporate services in Nairobi. Kenya's leading corporate printing partner, specializing in large-scale political campaigns, 
+                corporate branding, and high-volume commercial printing solutions. Contact us today for a free quote.`;
+  const pageUrl = `https://lunagraphics.co.ke/corporate-services-page`; // Use the actual URL for this page
+    const imageUrl = "https://lunagraphics.co.ke/social-sharing-image.jpg"; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
 const CorporateServicesPage = () => {
   return (
     <div className="min-h-screen bg-background">
+
+      
+      <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
+
       <Header />
       
       {/* Main Content */}

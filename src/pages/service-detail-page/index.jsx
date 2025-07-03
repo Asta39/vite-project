@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { services } from '../../data/serviceData';
+
 import Header from '../../components/ui/Header';
 import ServiceHero from './components/ServiceHero';
 import ServiceDetails from './components/ServiceDetails';
@@ -14,70 +17,18 @@ const ServiceDetailPage = () => {
   const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
 
+
+  const serviceData = services["large-format"];
   // Mock service data
-  const serviceData = {
-    id: 1,
-    title: "Large Format Printing",
-    category: "Digital Printing",
-    description: "Professional large format printing services for banners, posters, signage, and displays with vibrant colors and exceptional quality.",
-    detailedDescription: `Our large format printing service delivers stunning visual impact for your marketing campaigns, events, and business signage. Using state-of-the-art digital printing technology, we produce high-resolution prints on a wide variety of materials.\n\nWhether you need indoor or outdoor applications, our weather-resistant inks and premium substrates ensure your prints maintain their vibrancy and durability. From small promotional posters to massive building wraps, we handle projects of all sizes with precision and attention to detail.\n\nOur experienced team works closely with you to optimize your designs for large format printing, ensuring the best possible results while meeting your timeline and budget requirements.`,
-    heroImage: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop",
-    startingPrice: 500,
-    turnaround: "24-48 hours",
-    minimumOrder: "1 piece",
-    keyFeatures: [
-      "High Resolution Printing",
-      "Weather Resistant",
-      "Multiple Materials",
-      "Custom Sizes"
-    ],
-    specifications: [
-      {
-        icon: "Maximize",
-        title: "Maximum Size",
-        description: "Up to 3.2m x 50m continuous printing capability"
-      },
-      {
-        icon: "Palette",
-        title: "Color Quality",
-        description: "8-color UV-resistant inks for vibrant, long-lasting prints"
-      },
-      {
-        icon: "Layers",
-        title: "Material Options",
-        description: "Vinyl, canvas, fabric, paper, and specialty substrates"
-      },
-      {
-        icon: "Zap",
-        title: "Resolution",
-        description: "Up to 1440 DPI for crisp, detailed output"
-      },
-      {
-        icon: "Shield",
-        title: "Durability",
-        description: "UV-resistant inks with 3-5 year outdoor lifespan"
-      },
-      {
-        icon: "Settings",
-        title: "Finishing Options",
-        description: "Lamination, mounting, grommets, and hemming available"
-      }
-    ],
-    materials: [
-      "Vinyl Banner Material",
-      "Canvas",
-      "Mesh Banner",
-      "Fabric",
-      "Photo Paper",
-      "Adhesive Vinyl",
-      "Backlit Film",
-      "Window Cling",
-      "Magnetic Material",
-      "Foam Board",
-      "Corrugated Plastic",
-      "Aluminum Composite"
-    ]
-  };
+   
+
+    const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for any type of large format printing materials. Get a free quote for your custom large format printing project today at Luna Graphics.`;
+  const pageUrl = `https://lunagraphics.co.ke/service-detail-page`; // Use the actual URL for this page
+  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const brandName = "Luna Graphics";
+  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+
 
   const equipmentData = [
     {
@@ -233,6 +184,7 @@ const ServiceDetailPage = () => {
   const relatedServicesData = [
     {
       title: "Digital Printing",
+     
       category: "Print Services",
       description: "High-quality digital printing for business cards, flyers, brochures, and marketing materials.",
       image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&h=300&fit=crop",
@@ -242,6 +194,7 @@ const ServiceDetailPage = () => {
     },
     {
       title: "UV Printing",
+      path: "/uv-printing-services-page",
       category: "Specialty Printing",
       description: "Direct UV printing on various materials including glass, metal, wood, and plastics.",
       image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop",
@@ -251,6 +204,7 @@ const ServiceDetailPage = () => {
     },
     {
       title: "CNC Cutting",
+      path: "/cnc-cutting-services-page",
       category: "Fabrication",
       description: "Precision CNC cutting services for signage, displays, and custom fabrication projects.",
       image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop",
@@ -295,6 +249,30 @@ const ServiceDetailPage = () => {
   if (!selectedService) {
     return (
       <div className="min-h-screen bg-background">
+
+              <Helmet>
+        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* --- Open Graph / Facebook --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content={brandName} />
+
+        {/* --- Twitter --- */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:site" content={twitterHandle} />
+      </Helmet>
+
         <Header />
         <div className="pt-16 flex items-center justify-center min-h-screen">
           <div className="text-center">

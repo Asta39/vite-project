@@ -190,7 +190,7 @@ const MachineShowcase = () => {
                   iconName="MessageCircle"
                   iconPosition="left"
                   onClick={() => {
-                    const phoneNumber = '+254700000000';
+                    const phoneNumber = '+254791159618';
                     const message = `Hello! I'm interested in services using your ${activeMachine.name}. Please provide more details.`;
                     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                     window.open(whatsappUrl, '_blank');
