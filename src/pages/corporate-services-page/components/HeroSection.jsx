@@ -2,20 +2,23 @@ import React from 'react';
 import Button from '../../../components/ui/Button';
 import Icon from '../../../components/AppIcon';
 
- const handleWhatsAppClick = () => {
-    const phoneNumber = '254791159618';
+const HeroSection = () => {
+  // 1. NEW HANDLER for the "Get Corporate Quote" button
+  // This function opens WhatsApp with a pre-filled message.
+  const handleCorporateQuoteWhatsApp = () => {
+    const phoneNumber = '254791159618'; // Use number without '+'
     const message = 'Hello! I would like to inquire about your corporate printing services.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
-    const handleNavigation = (path) => {
-    navigate(path);
-    setMobileMenuOpen(false);
-    setServicesDropdownOpen(false);
+  // 2. NEW HANDLER for the "Schedule Consultation" button
+  // This function tells the browser to open the phone dialer.
+  const handlePhoneCall = () => {
+    const phoneNumber = '+254791159618'; // For 'tel:', the '+' is standard
+    window.open(`tel:${phoneNumber}`, '_self');
   };
 
-const HeroSection = () => {
   return (
     <section className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white overflow-hidden">
       {/* Background Pattern */}
@@ -67,7 +70,8 @@ const HeroSection = () => {
                 size="lg"
                 iconName="FileText"
                 iconPosition="left"
-                onClick={() => handleNavigation('/corporate-services-page/CorporateQuoteForm')}
+                // 3. UPDATED onClick to use the new WhatsApp handler
+                onClick={handleCorporateQuoteWhatsApp}
                 className="bg-secondary text-primary hover:bg-secondary-600"
               >
                 Get Corporate Quote
@@ -77,7 +81,8 @@ const HeroSection = () => {
                 size="lg"
                 iconName="Phone"
                 iconPosition="left"
-                onClick={handleWhatsAppClick}
+                // 4. UPDATED onClick to use the new phone call handler
+                onClick={handlePhoneCall}
                 className="border-white text-white hover:bg-white hover:text-primary"
               >
                 Schedule Consultation

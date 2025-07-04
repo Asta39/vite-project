@@ -87,10 +87,10 @@ const ServicePackages = () => {
       description: 'Complete printing solutions for political campaigns and election materials',
       color: 'primary',
       services: [
-        { service: 'Campaign Posters (A1)', quantities: ['500 pcs', '1,000 pcs', '5,000 pcs', '10,000 pcs'], prices: ['KES 75,000', 'KES 140,000', 'KES 650,000', 'KES 1,200,000'], features: ['Weather resistant', 'UV protected', 'Full color'] },
-        { service: 'Banners & Billboards', quantities: ['10 pcs', '25 pcs', '50 pcs', '100 pcs'], prices: ['KES 45,000', 'KES 100,000', 'KES 180,000', 'KES 320,000'], features: ['Large format', 'Outdoor grade', 'Custom sizes'] },
-        { service: 'T-shirts & Merchandise', quantities: ['100 pcs', '500 pcs', '1,000 pcs', '5,000 pcs'], prices: ['KES 35,000', 'KES 150,000', 'KES 280,000', 'KES 1,200,000'], features: ['Quality cotton', 'Screen printing', 'Multiple colors'] },
-        { service: 'Flyers & Leaflets', quantities: ['5,000 pcs', '10,000 pcs', '25,000 pcs', '50,000 pcs'], prices: ['KES 25,000', 'KES 45,000', 'KES 100,000', 'KES 180,000'], features: ['A5 size', 'Glossy finish', 'Fast delivery'] }
+        { service: 'Campaign Posters (A3)', quantities: ['500 pcs', '1,000 pcs', '5,000 pcs', '10,000 pcs'], prices: ['KES 20,000', 'KES 38,000', 'KES 170,000', 'KES 400,000'], features: ['Weather resistant', 'UV protected', 'Full color'] },
+        { service: 'Banners & Billboards', quantities: ['10 pcs', '25 pcs', '50 pcs', '100 pcs'], prices: ['KES 20,000', 'KES 45,000', 'KES 70,000', 'KES 150,000'], features: ['Large format', 'Outdoor grade', 'Custom sizes'] },
+        { service: 'T-shirts & Merchandise', quantities: ['100 pcs', '500 pcs', '1,000 pcs', '5,000 pcs'], prices: ['KES 90,000', 'KES 425,000', 'KES 750,000', 'KES 4,500,000'], features: ['Quality cotton', 'Screen printing', 'Multiple colors'] },
+        { service: 'Flyers & Leaflets', quantities: ['5,000 pcs', '10,000 pcs', '25,000 pcs', '50,000 pcs'], prices: ['KES 85,000', 'KES 130,000', 'KES 375,000', 'KES 500,000'], features: ['A5 size', 'Glossy finish', 'Fast delivery'] }
       ]
     },
     corporate: {
@@ -98,8 +98,8 @@ const ServicePackages = () => {
       description: 'Professional branding materials for businesses and organizations',
       color: 'secondary',
       services: [
-        { service: 'Business Cards', quantities: ['500 pcs', '1,000 pcs', '2,500 pcs', '5,000 pcs'], prices: ['KES 8,000', 'KES 14,000', 'KES 32,000', 'KES 58,000'], features: ['Premium paper', 'Matt/Gloss finish', 'Double sided'] },
-        { service: 'Corporate Brochures', quantities: ['250 pcs', '500 pcs', '1,000 pcs', '2,500 pcs'], prices: ['KES 18,000', 'KES 32,000', 'KES 58,000', 'KES 125,000'], features: ['Tri-fold design', 'High quality print', 'Custom design'] },
+        { service: 'Business Cards', quantities: ['500 pcs', '1,000 pcs', '2,500 pcs', '5,000 pcs'], prices: ['KES 10,000', 'KES 14,000', 'KES 45,000', 'KES 100,000'], features: ['Premium paper', 'Matt/Gloss finish', 'Double sided'] },
+        { service: 'Corporate Brochures', quantities: ['250 pcs', '500 pcs', '1,000 pcs', '2,500 pcs'], prices: ['KES 4,250', 'KES 6,500', 'KES 15,000', 'KES 25,000'], features: ['Tri-fold design', 'High quality print', 'Custom design'] },
         { service: 'Office Signage', quantities: ['5 pcs', '10 pcs', '20 pcs', '50 pcs'], prices: ['KES 25,000', 'KES 45,000', 'KES 80,000', 'KES 180,000'], features: ['Acrylic/Metal', 'LED options', 'Professional mounting'] },
         { service: 'Branded Merchandise', quantities: ['50 pcs', '100 pcs', '250 pcs', '500 pcs'], prices: ['KES 22,000', 'KES 38,000', 'KES 85,000', 'KES 150,000'], features: ['Mugs, pens, bags', 'Logo printing', 'Gift packaging'] }
       ]
@@ -109,7 +109,7 @@ const ServicePackages = () => {
       description: 'Complete solutions for events, exhibitions, and trade shows',
       color: 'error',
       services: [
-        { service: 'Exhibition Banners', quantities: ['5 pcs', '10 pcs', '25 pcs', '50 pcs'], prices: ['KES 35,000', 'KES 65,000', 'KES 145,000', 'KES 260,000'], features: ['Roll-up stands', 'Portable design', 'High resolution'] },
+        { service: 'Exhibition Banners', quantities: ['5 pcs', '10 pcs', '25 pcs', '50 pcs'], prices: ['KES 40,000', 'KES 80,000', 'KES 187,500', 'KES 375,000'], features: ['Roll-up stands', 'Portable design', 'High resolution'] },
         { service: 'Event Backdrops', quantities: ['2 pcs', '5 pcs', '10 pcs', '20 pcs'], prices: ['KES 28,000', 'KES 65,000', 'KES 120,000', 'KES 220,000'], features: ['Large format', 'Fabric/Vinyl', 'Easy setup'] },
         { service: 'Table Covers & Runners', quantities: ['10 pcs', '25 pcs', '50 pcs', '100 pcs'], prices: ['KES 18,000', 'KES 40,000', 'KES 75,000', 'KES 135,000'], features: ['Custom fit', 'Washable fabric', 'Full color print'] },
         { service: 'Event Programs & Tickets', quantities: ['500 pcs', '1,000 pcs', '2,500 pcs', '5,000 pcs'], prices: ['KES 12,000', 'KES 20,000', 'KES 45,000', 'KES 80,000'], features: ['Premium paper', 'Perforation', 'Security features'] }

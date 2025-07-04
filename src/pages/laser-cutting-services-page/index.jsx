@@ -18,199 +18,20 @@ const LaserCuttingServicesPage = () => {
   const [selectedService, setSelectedService] = useState(null);
 
 
-  const serviceData = services['laser-cutting'];
+  const pageData = services['laser-cutting'];
   // Laser Cutting service data
 
 
 
-  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom project today at Luna Graphics.`;
+  const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom project today at Luna Graphics.`;
   const pageUrl = `https://lunagraphics.co.ke/laser-cutting-services-page`; // Use the actual URL for this page
-  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const imageUrl = pageData.heroImage; // Use this page's hero image for social sharing
   const brandName = "Luna Graphics";
   const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
 
 
-  const equipmentData = [
-    {
-      name: "CO2 Laser Cutter",
-      description: "High-precision CO2 laser system for accurate cutting of various non-metal materials with exceptional edge quality.",
-      image: "https://images.unsplash.com/photo-1563906267088-b029e7101114?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "1.3m x 0.9m cutting area",
-      capabilities: [
-        "Variable power control",
-        "High-speed cutting",
-        "Engraving capability",
-        "Air assist system"
-      ]
-    },
-    {
-      name: "Precision Optics System",
-      description: "Advanced laser optics with auto-focus capability for consistent cutting quality across materials.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "Focal length: 50-150mm",
-      capabilities: [
-        "Auto-focus technology",
-        "Beam quality optimization",
-        "Material thickness detection",
-        "Edge quality enhancement"
-      ]
-    },
-    {
-      name: "Vector Processing Software",
-      description: "Professional laser cutting software for optimal path planning and material efficiency.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "Unlimited design complexity",
-      capabilities: [
-        "Vector optimization",
-        "Nesting algorithms",
-        "Multi-layer processing",
-        "Cut quality simulation"
-      ]
-    }
-  ];
-
-  const sampleGalleryData = [
-    {
-      id: 1,
-      title: "Intricate Jewelry",
-      category: "Jewelry",
-      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Decorative Panels",
-      category: "Decoration",
-      image: "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?w=400&h=400&fit=crop"
-    },
-    {
-      id: 3,
-      title: "Custom Signage",
-      category: "Signage",
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Textile Patterns",
-      category: "Textiles",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop"
-    },
-    {
-      id: 5,
-      title: "Architectural Models",
-      category: "Architecture",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop"
-    },
-    {
-      id: 6,
-      title: "Art Installations",
-      category: "Art",
-      image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop"
-    },
-    {
-      id: 7,
-      title: "Leather Goods",
-      category: "Leather",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"
-    },
-    {
-      id: 8,
-      title: "Precision Stencils",
-      category: "Stencils",
-      image: "https://images.unsplash.com/photo-1581594736987-d06b0d4eac08?w=400&h=400&fit=crop"
-    }
-  ];
-
-  const pricingPackages = [
-    {
-      name: "Basic Laser Cutting",
-      description: "Perfect for simple designs and small projects",
-      price: 1500,
-      originalPrice: 2000,
-      unit: "sq meter",
-      popular: false,
-      turnaround: "3-5 days",
-      features: [
-        "Standard material cutting",
-        "Basic vector file conversion",
-        "Standard edge finishing",
-        "Digital proof included",
-        "Free delivery within Nairobi",
-        "Quality guarantee"
-      ]
-    },
-    {
-      name: "Professional Cutting",
-      description: "Most popular for intricate commercial projects",
-      price: 2800,
-      originalPrice: 3500,
-      unit: "sq meter",
-      popular: true,
-      turnaround: "2-3 days",
-      features: [
-        "Premium material options",
-        "Advanced vector optimization",
-        "Precision edge finishing",
-        "Multiple design iterations",
-        "Rush delivery available",
-        "Design consultation",
-        "2-year quality guarantee",
-        "Technical support included"
-      ]
-    },
-    {
-      name: "Premium Precision",
-      description: "For high-end detailed fabrication projects",
-      price: 4500,
-      unit: "sq meter",
-      popular: false,
-      turnaround: "24-48 hours",
-      features: [
-        "Premium specialty materials",
-        "Dedicated project manager",
-        "Ultra-precision cutting",
-        "Custom material sourcing",
-        "Same-day rush available",
-        "On-site consultation",
-        "3-year quality guarantee",
-        "Volume pricing discounts",
-        "Priority production queue"
-      ]
-    }
-  ];
-
-  const relatedServicesData = [
-    {
-      title: "CNC Cutting",
-      category: "Precision Fabrication",
-      description: "Professional CNC cutting services for precise fabrication of various materials.",
-      image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop",
-      startingPrice: 800,
-      turnaround: "3-5 days",
-      features: ["Precision Cutting", "Multiple Materials", "Custom Shapes"]
-    },
-    {
-      title: "Large Format Printing",
-      category: "Digital Printing",
-      description: "Professional large format printing for banners, posters, and displays.",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      startingPrice: 500,
-      turnaround: "24-48 hours",
-      features: ["Weather Resistant", "Multiple Formats", "Fast Turnaround"]
-    },
-    {
-      title: "UV Printing",
-      category: "Specialty Printing",
-      description: "Direct UV printing on various materials including glass, metal, and plastics.",
-      image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=300&fit=crop",
-      startingPrice: 200,
-      turnaround: "2-3 days",
-      features: ["Direct Material Printing", "Durable Finish", "Vibrant Colors"]
-    }
-  ];
+  
 
   const breadcrumbItems = [
     { label: "Home", path: "/homepage" },

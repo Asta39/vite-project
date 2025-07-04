@@ -8,7 +8,7 @@ const LocationMap = () => {
   const businessLocation = {
     name: 'Luna Graphics Print Shop',
     address: 'Kweria Road, Nairobi CBD',
-    coordinates: { lat: -1.280259582752351, lng: 36.8226641036011 },
+    coordinates: { lat: -1.2803021317953365, lng: 36.822639212706925 },
     landmarks: [
       'Near Khoja Stage',
       'Near Globe roundabout',

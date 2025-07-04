@@ -185,7 +185,7 @@ const GoogleReviews = () => {
         {/* CTA */}
         <div className="text-center mt-12">
           <p className="text-text-secondary mb-6">
-            Join hundreds of satisfied customers who trust Halo Creatives for their printing needs.
+            Join hundreds of satisfied customers who trust Luna Graphics for their printing needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
@@ -195,7 +195,7 @@ const GoogleReviews = () => {
               Start Your Project
             </button>
             <button
-              onClick={() => window.open('https://www.google.com/search?q=Halo+Creatives+Nairobi+reviews', '_blank')}
+              onClick={() => window.open('https://www.google.com/search?q=Luna+Graphics+LTD+reviews#', '_blank')}
               className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
             >
               Read All Reviews

@@ -406,7 +406,7 @@ const CorporateQuoteForm = () => {
                   size="lg"
                   iconName="Phone"
                   iconPosition="left"
-                  onClick={() => window.open('tel:+254700000000')}
+                  onClick={() => window.open('tel:+254791159618')}
                 >
                   Call Now
                 </Button>

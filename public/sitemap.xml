@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- 
+    This sitemap lists all discoverable pages on lunagraphics.co.ke.
+    Priority guide:
+    1.0 - 0.9: Core pages (Homepage, Main Services, Contact)
+    0.8 - 0.7: Secondary pages (Specific services, Gallery)
+    0.6 - 0.5: Tertiary pages (Team, etc.)
+  -->
+
+  <!-- Homepage (Highest Priority) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main Corporate Page (Very High Priority) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/corporate-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Key Service Pages (High Priority) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/uv-printing-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lunagraphics.co.ke/cnc-cutting-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lunagraphics.co.ke/laser-cutting-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lunagraphics.co.ke/t-shirt-printing-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lunagraphics.co.ke/plotting-services-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Gallery Page (Important, updated often) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/gallery-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Contact Page (Important, but rarely changes) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/contact-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Team Page (Good to have) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/team-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Generic Service Detail Page (Lower priority, as specific pages are better) -->
+  <url>
+    <loc>https://lunagraphics.co.ke/service-detail-page</loc>
+    <lastmod>2025-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

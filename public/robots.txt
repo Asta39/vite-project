@@ -1,3 +1,45 @@
-# https://www.robotstxt.org/robotstxt.html
+# ===============================================================
+# General Rules for Search Engines (e.g., Google, Bing, DuckDuckGo)
+# We want these bots to index our site for search results.
+# ===============================================================
 User-agent: *
+Allow: /
 Disallow:
+
+
+# ===============================================================
+# Specific Rules to Block AI/LLM Data Scrapers
+# This section prevents common bots from using your content for
+# training large language models (LLMs).
+# ===============================================================
+
+# Block OpenAI's GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# Block Google's AI training bot (this is separate from the main Googlebot)
+User-agent: Google-Extended
+Disallow: /
+
+# Block Anthropic's AI bot (Claude)
+User-agent: anthropic-ai
+Disallow: /
+
+# Block Common Crawl's bot (a massive dataset used by many AIs)
+User-agent: CCBot
+Disallow: /
+
+# Block Perplexity AI's bot
+User-agent: PerplexityBot
+Disallow: /
+
+# Block a new AI bot from China
+User-agent: Oneweb_bot
+Disallow: /
+
+
+# ===============================================================
+# Sitemap Location
+# This helps all crawlers (including the ones you allow) find your pages.
+# ===============================================================
+Sitemap: https://lunagraphics.co.ke/sitemap.xml

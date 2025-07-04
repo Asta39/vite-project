@@ -45,11 +45,11 @@ const CorporateServices = () => {
   const corporatePackages = [
     {
       name: "Startup Package",
-      price: "25,000",
+      price: "100000",
       description: "Perfect for new political parties and small campaigns",
       features: [
         "500 A4 flyers",
-        "10 large banners",
+        "10 large banners (1m by 3m)",
         "100 branded t-shirts",
         "Basic logo design",
         "Free delivery in Nairobi"
@@ -58,11 +58,11 @@ const CorporateServices = () => {
     },
     {
       name: "Campaign Package",
-      price: "75,000",
+      price: "300000",
       description: "Comprehensive solution for active political campaigns",
       features: [
         "2,000 A4 flyers",
-        "25 large banners",
+        "25 large banners (1m by 3m)",
         "300 branded t-shirts",
         "Professional design service",
         "Billboard design included",
@@ -72,7 +72,7 @@ const CorporateServices = () => {
     },
     {
       name: "Presidential Package",
-      price: "150,000",
+      price: "1000000",
       description: "Full-scale printing solution for major political campaigns",
       features: [
         "5,000+ promotional materials",
@@ -217,7 +217,7 @@ const CorporateServices = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl lg:text-3xl font-heading font-bold text-text-primary mb-6">
-                Why Political Parties Choose Halo Creatives
+                Why Political Parties Choose Luna Graphics
               </h3>
               
               <div className="space-y-6">

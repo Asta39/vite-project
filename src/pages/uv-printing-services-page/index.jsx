@@ -125,201 +125,31 @@ const UVPrintingServicesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQuote, setCurrentQuote] = useState(null);
 
-const serviceData = services["uv-printing"];
+const pageData = services["uv-printing"];
   // UV Printing service specific data
  
 
 
-  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high quality machines with high precision to produce quality output.`;
+  const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high quality machines with high precision to produce quality output.`;
   const pageUrl = `https://lunagraphics.co.ke/uv-printing-services-page`; // Use the actual URL for this page
-  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const imageUrl = pageData.heroImage; // Use this page's hero image for social sharing
   const brandName = "Luna Graphics";
   const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
 
 
-  const equipmentData = [
-    {
-      name: "Roland LEF2-200 UV Printer",
-      description: "Professional flatbed UV printer for direct printing on various rigid materials with exceptional quality.",
-      image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "770mm x 330mm",
-      capabilities: [
-        "Direct substrate printing",
-        "Variable droplet technology",
-        "White and clear ink options",
-        "Multilayer printing capability"
-      ]
-    },
-    {
-      name: "Mimaki UJF-7151plus",
-      description: "Advanced UV-LED inkjet printer offering high-speed printing with superior quality on diverse materials.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "711mm x 508mm",
-      capabilities: [
-        "UV-LED instant curing",
-        "2.5D textured printing",
-        "Primer and varnish printing",
-        "High-speed production"
-      ]
-    },
-    {
-      name: "HP Stitch S500",
-      description: "High-performance UV printer designed for promotional products and custom applications.",
-      image: "https://images.unsplash.com/photo-1563906267088-b029e7101114?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "635mm x 508mm",
-      capabilities: [
-        "Water-based UV inks",
-        "Stretch and flexibility",
-        "Fast production speeds",
-        "Consistent color accuracy"
-      ]
-    }
-  ];
+
 
   const sampleGalleryData = [
-    {
-      id: 1,
-      title: "Glass Panel Signage",
-      category: "Glass",
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Metal Wall Art",
-      category: "Metal",
-      image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=400&fit=crop"
-    },
-    {
-      id: 3,
-      title: "Acrylic Display",
-      category: "Acrylic",
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=400&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Wood Promotional Item",
-      category: "Wood",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=400&fit=crop"
-    },
-    {
-      id: 5,
-      title: "Ceramic Tile Design",
-      category: "Ceramic",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop"
-    },
-    {
-      id: 6,
-      title: "Phone Case Printing",
-      category: "Accessories",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=400&fit=crop"
-    },
-    {
-      id: 7,
-      title: "Decorative Panel",
-      category: "Decoration",
-      image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=400&fit=crop"
-    },
-    {
-      id: 8,
-      title: "Award Plaque",
-      category: "Awards",
-      image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=400&fit=crop"
-    }
+
   ];
 
   const pricingPackages = [
-    {
-      name: "Standard UV Package",
-      description: "Perfect for promotional items and small projects",
-      price: 1200,
-      originalPrice: 1600,
-      unit: "per piece",
-      popular: false,
-      turnaround: "3-5 days",
-      features: [
-        "Standard substrate options",
-        "Single-sided printing",
-        "Basic color matching",
-        "Standard resolution",
-        "Free design consultation",
-        "Quality guarantee"
-      ]
-    },
-    {
-      name: "Professional UV Package",
-      description: "Most popular for business applications",
-      price: 2000,
-      originalPrice: 2800,
-      unit: "per piece",
-      popular: true,
-      turnaround: "2-3 days",
-      features: [
-        "Premium substrate options",
-        "Double-sided printing available",
-        "Color-accurate proofing",
-        "High-resolution printing",
-        "White and clear ink options",
-        "Rush service available",
-        "Professional finishing",
-        "Custom size accommodation"
-      ]
-    },
-    {
-      name: "Premium UV Package",
-      description: "For high-end applications and volume orders",
-      price: 3500,
-      unit: "per piece",
-      popular: false,
-      turnaround: "24-48 hours",
-      features: [
-        "Specialty substrate materials",
-        "Multi-layer printing effects",
-        "Textured 2.5D printing",
-        "Custom color matching",
-        "Priority production",
-        "Same-day rush available",
-        "Premium packaging",
-        "Volume discounts",
-        "Dedicated project manager"
-      ]
-    }
+
   ];
 
   const relatedServicesData = [
-    {
-      title: "Large Format Printing",
-      path: "/service-detail-page",
-      category: "Digital Printing",
-      description: "Professional large format printing for banners, posters, and signage applications.",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      startingPrice: 500,
-      turnaround: "24-48 hours",
-      features: ["High Resolution", "Weather Resistant", "Custom Sizes"]
-    },
-    {
-      title: "CNC Cutting",
-      path:"/cnc-cutting-services-page",
-      category: "Fabrication",
-      description: "Precision CNC cutting services for signage, displays, and custom fabrication projects.",
-      image: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop",
-      startingPrice: 300,
-      turnaround: "3-5 days",
-      features: ["Precision Cutting", "Multiple Materials", "Custom Shapes"]
-    },
-    {
-      title: "Laser Engraving",
-      path:" /laser-cutting-services-page",
-      category: "Engraving",
-      description: "Professional laser engraving services for promotional items and custom applications.",
-      image: "https://images.unsplash.com/photo-1581092918484-8313de0f6f9d?w=400&h=300&fit=crop",
-      startingPrice: 250,
-      turnaround: "1-2 days",
-      features: ["Precision Engraving", "Various Materials", "Custom Designs"]
-    }
+ 
   ];
 
   const breadcrumbItems = [

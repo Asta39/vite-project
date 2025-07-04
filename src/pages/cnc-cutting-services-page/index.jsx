@@ -19,196 +19,23 @@ const CNCCuttingServicesPage = () => {
   const [selectedService, setSelectedService] = useState(null);
 
   // CNC Cutting service data
-  const serviceData = services["cnc-cutting-services"];
+  const pageData = services["cnc-cutting-services"];
 
   // 2. DEFINE SEO VARIABLES FROM YOUR EXISTING DATA
-  const pageTitle = `${serviceData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${serviceData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom fabrication project today at Luna Graphics.`;
+  const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom fabrication project today at Luna Graphics.`;
   const pageUrl = `https://lunagraphics.co.ke/cnc-cutting-services-page`; // Use the actual URL for this page
   const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
   const brandName = "Luna Graphics";
   const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
 
-  const equipmentData = [
-    {
-      name: "Industrial CNC Router",
-      description: "High-precision CNC router for accurate cutting of various materials with professional finishing.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "2.5m x 1.5m x 200mm",
-      capabilities: [
-        "Multi-axis cutting",
-        "Automatic tool changing",
-        "Vacuum hold-down system",
-        "Dust collection system"
-      ]
-    },
-   /* {
-      name: "Precision Spindle System",
-      description: "High-speed spindle system for smooth cuts and excellent surface finish.",
-      image: "https://images.unsplash.com/photo-1563906267088-b029e7101114?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "Variable RPM up to 24,000",
-      capabilities: [
-        "Air-cooled spindle motor",
-        "Precision collet system",
-        "Variable speed control",
-        "Low vibration operation"
-      ]
-    },*/
-    {
-      name: "CAD/CAM Software Suite",
-      description: "Professional design and manufacturing software for optimal cutting paths.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
-      status: "Active",
-      maxSize: "Unlimited design complexity",
-      capabilities: [
-        "3D modeling capability",
-        "Toolpath optimization",
-        "Material simulation",
-        "Nesting algorithms"
-      ]
-    }
-  ];
+  
 
-  const sampleGalleryData = [
-    {
-      id: 1,
-      title: "Architectural Panels",
-      category: "Architecture",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Custom Signage",
-      category: "Signage",
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop"
-    },
-    {
-      id: 3,
-      title: "Decorative Elements",
-      category: "Decoration",
-      image: "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?w=400&h=400&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Prototype Parts",
-      category: "Prototyping",
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=400&fit=crop"
-    },
-    {
-      id: 5,
-      title: "Furniture Components",
-      category: "Furniture",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=400&fit=crop"
-    },
-    {
-      id: 6,
-      title: "Display Stands",
-      category: "Displays",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=400&fit=crop"
-    },
-    {
-      id: 7,
-      title: "Custom Brackets",
-      category: "Hardware",
-      image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=400&fit=crop"
-    },
-    {
-      id: 8,
-      title: "Art Installations",
-      category: "Art",
-      image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=400&fit=crop"
-    }
-  ];
 
-  const pricingPackages = [
-    {
-      name: "Basic Cutting",
-      description: "Perfect for simple shapes and prototypes",
-      price: 2000,
-      originalPrice: 2500,
-      unit: "sq meter",
-      popular: false,
-      turnaround: "5-7 days",
-      features: [
-        "Standard material cutting",
-        "Basic CAD file conversion",
-        "Standard edge finishing",
-        "Digital proof included",
-        "Free delivery within Nairobi",
-        "Quality guarantee"
-      ]
-    },
-    {
-      name: "Professional Cutting",
-      description: "Most popular for commercial projects",
-      price: 3500,
-      originalPrice: 4500,
-      unit: "sq meter",
-      popular: true,
-      turnaround: "3-5 days",
-      features: [
-        "Premium material options",
-        "Advanced CAD optimization",
-        "Smooth edge finishing",
-        "Multiple design revisions",
-        "Rush delivery available",
-        "Installation consultation",
-        "2-year quality guarantee",
-        "Technical support included"
-      ]
-    },
-    {
-      name: "Enterprise Cutting",
-      description: "For large-scale manufacturing projects",
-      price: 5500,
-      unit: "sq meter",
-      popular: false,
-      turnaround: "2-3 days",
-      features: [
-        "Premium specialty materials",
-        "Dedicated project manager",
-        "Custom tooling if required",
-        "Precision quality control",
-        "Same-day rush available",
-        "On-site consultation",
-        "3-year quality guarantee",
-        "Volume pricing discounts",
-        "Priority production queue"
-      ]
-    }
-  ];
 
-  const relatedServicesData = [
-    {
-      title: "Laser Cutting",
-      category: "Precision Cutting",
-      description: "High-precision laser cutting for intricate designs and detailed fabrication.",
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop",
-      startingPrice: 600,
-      turnaround: "2-3 days",
-      features: ["Intricate Designs", "Multiple Materials", "High Precision"]
-    },
-    {
-      title: "Large Format Printing",
-      category: "Digital Printing",
-      description: "Professional large format printing for banners, posters, and displays.",
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      startingPrice: 500,
-      turnaround: "24-48 hours",
-      features: ["Weather Resistant", "Multiple Formats", "Fast Turnaround"]
-    },
-    {
-      title: "UV Printing",
-      category: "Specialty Printing",
-      description: "Direct UV printing on various materials including glass, metal, and plastics.",
-      image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=300&fit=crop",
-      startingPrice: 200,
-      turnaround: "2-3 days",   
-      features: ["Direct Material Printing", "Durable Finish", "Vibrant Colors"]
-    }
-  ];
+
+
+
 
   const breadcrumbItems = [
     { label: "Home", path: "/homepage" },

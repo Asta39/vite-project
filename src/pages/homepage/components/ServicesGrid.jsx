@@ -46,7 +46,7 @@ const ServicesGrid = () => {
       icon: "Zap",
       startingPrice: 1000,
       turnaround: "2-3 days",
-      isPopular: false,
+      isPopular: true,
       features: [
         "Print on any material",
         "Scratch and fade resistant",
@@ -95,7 +95,7 @@ const ServicesGrid = () => {
       description: "Custom apparel printing including t-shirts, hoodies, and uniforms. Perfect for events, teams, and promotional wear.",
       image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       icon: "Shirt",
-      startingPrice: 300,
+      startingPrice: 700,
       turnaround: "1-2 days",
       isPopular: true,
       features: [
