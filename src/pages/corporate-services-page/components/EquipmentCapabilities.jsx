@@ -1,119 +1,26 @@
 import React from 'react';
 import Image from '../../../components/AppImage';
 import Icon from '../../../components/AppIcon';
+import { services } from '../../../data/serviceData';
+
+
+import { corporateEquipment } from '../../../data/corporateEquipmentData';
 
 const EquipmentCapabilities = () => {
-  const equipment = [
-    {
-      name: 'Large Format UV Printer',
-      model: 'Roland VersaUV LEF-300',
-      image: 'https://images.pexels.com/photos/3846207/pexels-photo-3846207.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'Print size up to 770mm × 330mm',
-        'UV-LED curing technology',
-        'Print on various materials',
-        'White ink and clear coating'
-      ],
-      specifications: {
-        'Max Print Speed': '3.2 m²/hour',
-        'Resolution': '1440 × 1440 dpi',
-        'Ink Colors': '4 colors + White + Clear',
-        'Material Thickness': 'Up to 100mm'
-      },
-      applications: ['Signage', 'Promotional items', 'Phone cases', 'Awards']
-    },
-    {
-      name: 'CNC Cutting Machine',
-      model: 'Multicam 3000 Series',
-      image: 'https://images.pexels.com/photos/5691622/pexels-photo-5691622.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'Precision cutting and engraving',
-        'Multiple material compatibility',
-        'Automated tool changing',
-        '3D carving capabilities'
-      ],
-      specifications: {
-        'Cutting Area': '3000mm × 1500mm',
-        'Spindle Power': '9.0 kW HSD',
-        'Positioning Accuracy': '±0.05mm',
-        'Max Cutting Speed': '30 m/min'
-      },
-      applications: ['Acrylic signs', 'Wood engraving', 'Metal cutting', 'Architectural models']
-    },
-    {
-      name: 'Industrial Plotter',
-      model: 'HP DesignJet Z9+',
-      image: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'High-speed large format printing',
-        'Professional color accuracy',
-        'Multiple media handling',
-        'Automated maintenance'
-      ],
-      specifications: {
-        'Print Width': 'Up to 1118mm (44")',
-        'Print Speed': 'Up to 91 m²/hour',
-        'Resolution': 'Up to 2400 × 1200 dpi',
-        'Ink System': '9-ink ChromaPRESS'
-      },
-      applications: ['Technical drawings', 'Architectural plans', 'Posters', 'Banners']
-    },
-    {
-      name: 'Laser Cutting System',
-      model: 'Epilog Fusion Pro 48',
-      image: 'https://images.pexels.com/photos/5691624/pexels-photo-5691624.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'Precision laser cutting',
-        'Engraving capabilities',
-        'Multiple material support',
-        'Computer-controlled operation'
-      ],
-      specifications: {
-        'Cutting Area': '1219mm × 914mm',
-        'Laser Power': '120 Watts CO2',
-        'Cutting Speed': 'Up to 1676mm/min',
-        'Engraving Speed': 'Up to 3556mm/min'
-      },
-      applications: ['Acrylic cutting', 'Wood engraving', 'Fabric cutting', 'Custom designs']
-    },
-    {
-      name: 'Digital Textile Printer',
-      model: 'Epson SureColor F9470H',
-      image: 'https://images.pexels.com/photos/7947662/pexels-photo-7947662.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'High-volume textile printing',
-        'Fluorescent ink compatibility',
-        'Automated media handling',
-        'Production-level reliability'
-      ],
-      specifications: {
-        'Print Width': '1626mm (64")',
-        'Print Speed': 'Up to 635 m²/hour',
-        'Ink Configuration': '8-color UltraChrome',
-        'Media Capacity': '180kg roll weight'
-      },
-      applications: ['T-shirt printing', 'Banners', 'Flags', 'Soft signage']
-    },
-    {
-      name: 'Offset Printing Press',
-      model: 'Heidelberg Speedmaster XL 75',
-      image: 'https://images.pexels.com/photos/3846207/pexels-photo-3846207.jpeg?auto=compress&cs=tinysrgb&w=800',
-      capabilities: [
-        'High-volume commercial printing',
-        'Superior print quality',
-        'Multiple format support',
-        'Automated color control'
-      ],
-      specifications: {
-        'Sheet Size': 'Up to 530mm × 750mm',
-        'Print Speed': 'Up to 18,000 sheets/hour',
-        'Colors': 'Up to 8 colors',
-        'Registration Accuracy': '±0.1mm'
-      },
-      applications: ['Business cards', 'Brochures', 'Books', 'Packaging']
-    }
-  ];
+  
+const pageData = services['t-shirt-printing']; 
 
+  if (!pageData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Service Not Found</h1>
+          <p>The data for 't-shirt-printing' could not be found. Please check the key in serviceData.js.</p>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,8 +36,9 @@ const EquipmentCapabilities = () => {
 
         {/* Equipment Grid */}
         <div className="grid lg:grid-cols-2 gap-12">
-          {equipment.map((item, index) => (
+          {corporateEquipment.map((item, index) => (
             <div key={index} className="bg-surface-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+               
               {/* Equipment Image */}
               <div className="relative h-64 overflow-hidden">
                 <Image
@@ -209,9 +117,9 @@ const EquipmentCapabilities = () => {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { metric: '50,000+', label: 'Posters per day', icon: 'FileImage' },
-              { metric: '10,000+', label: 'T-shirts per day', icon: 'Shirt' },
-              { metric: '500+', label: 'Banners per day', icon: 'Flag' },
+              { metric: '5,000+', label: 'Posters per day', icon: 'FileImage' },
+              { metric: '1,000+', label: 'T-shirts per day', icon: 'Shirt' },
+              { metric: '200+', label: 'Banners per day', icon: 'Flag' },
               { metric: '24/7', label: 'Production capability', icon: 'Clock' }
             ].map((stat, index) => (
               <div key={index} className="text-center">

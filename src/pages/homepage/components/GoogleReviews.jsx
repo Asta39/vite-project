@@ -1,62 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
+import { reviews } from '../../../data/reviewsData'; // 1. Import your new central data
 
 const GoogleReviews = () => {
   const [currentReview, setCurrentReview] = useState(0);
+  const navigate = useNavigate(); // Initialize navigate
 
-  const reviews = [
-    {
-      id: 1,
-      name: "Sarah Wanjiku",
-      avatar: "https://randomuser.me/api/portraits/women/32.jpg",
-      rating: 5,
-      date: "2 weeks ago",
-      review: `Excellent service! Luna Graphics printed our company banners for a trade show and the quality was outstanding. The colors were vibrant and the material was durable. They delivered on time and the pricing was very competitive. Highly recommend for any business printing needs.`,
-      service: "Large Format Printing"
-    },
-    {
-      id: 2,
-      name: "David Kimani",
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
-      rating: 5,
-      date: "1 month ago",
-      review: `I needed custom t-shirts for my team and Luna Graphics exceeded my expectations. The print quality is excellent and hasn't faded after multiple washes. The staff was professional and helped with the design. Will definitely use them again for future projects.`,
-      service: "T-shirt Printing"
-    },
-    {
-      id: 3,
-      name: "Grace Mutua",
-      avatar: "https://randomuser.me/api/portraits/women/28.jpg",
-      rating: 5,
-      date: "3 weeks ago",
-      review: `Professional UV printing service for our promotional items. The team understood our requirements perfectly and delivered high-quality results. The prints on our phone cases and awards look amazing. Great customer service and fast turnaround time.`,
-      service: "UV Printing"
-    },
-    {
-      id: 4,
-      name: "John Ochieng",
-      avatar: "https://randomuser.me/api/portraits/men/52.jpg",
-      rating: 5,
-      date: "2 months ago",
-      review: `Luna Graphics handled our architectural plotting needs with precision. The technical drawings were clear and accurate. They work with various CAD formats and the output quality is consistently excellent. Reliable partner for our engineering firm.`,
-      service: "Plotting Services"
-    },
-    {
-      id: 5,
-      name: "Mary Njeri",
-      avatar: "https://randomuser.me/api/portraits/women/41.jpg",
-      rating: 5,
-      date: "1 week ago",
-      review: `Amazing laser cutting service! They created beautiful decorative panels for our restaurant. The precision and attention to detail is remarkable. The team provided excellent advice on materials and design. Definitely the best printing shop in Nairobi.`,
-      service: "Laser Cutting"
-    }
-  ];
+  // 2. The old, hardcoded 'reviews' array is now DELETED from this file.
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentReview((prev) => (prev + 1) % reviews.length);
-    }, 5000);
+    }, 5000); // Increased interval slightly for better readability
 
     return () => clearInterval(interval);
   }, [reviews.length]);
@@ -76,7 +33,7 @@ const GoogleReviews = () => {
         name="Star"
         size={16}
         color={index < rating ? "#FFC107" : "#E9ECEF"}
-        className={index < rating ? "fill-current" : ""}
+        className={index < rating ? "text-yellow-400 fill-current" : "text-gray-300"}
       />
     ));
   };
@@ -122,7 +79,7 @@ const GoogleReviews = () => {
               
               <div className="flex items-center justify-center space-x-4">
                 <Image
-                  src={reviews[currentReview].avatar}
+                  src={reviews[currentReview].avatar} // This will now use your placeholder
                   alt={reviews[currentReview].name}
                   className="w-12 h-12 rounded-full object-cover"
                 />
@@ -139,37 +96,26 @@ const GoogleReviews = () => {
 
             {/* Navigation */}
             <div className="flex items-center justify-center space-x-4">
-              <button
-                onClick={handlePrevious}
-                className="w-10 h-10 bg-surface-100 hover:bg-primary hover:text-white rounded-full flex items-center justify-center transition-colors duration-200"
-              >
+              <button onClick={handlePrevious} className="w-10 h-10 bg-surface-100 hover:bg-primary hover:text-white rounded-full flex items-center justify-center transition-colors duration-200">
                 <Icon name="ChevronLeft" size={20} />
               </button>
               
-              {/* Dots Indicator */}
               <div className="flex space-x-2">
                 {reviews.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentReview(index)}
-                    className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                      index === currentReview ? 'bg-primary' : 'bg-surface-300'
-                    }`}
-                  />
+                  <button key={index} onClick={() => setCurrentReview(index)} className={`w-2 h-2 rounded-full transition-colors duration-200 ${ index === currentReview ? 'bg-primary' : 'bg-surface-300' }`} />
                 ))}
               </div>
               
-              <button
-                onClick={handleNext}
-                className="w-10 h-10 bg-surface-100 hover:bg-primary hover:text-white rounded-full flex items-center justify-center transition-colors duration-200"
-              >
+              <button onClick={handleNext} className="w-10 h-10 bg-surface-100 hover:bg-primary hover:text-white rounded-full flex items-center justify-center transition-colors duration-200">
                 <Icon name="ChevronRight" size={20} />
               </button>
             </div>
           </div>
 
           {/* Google Badge */}
-          <div className="absolute -top-4 -right-4 bg-background rounded-lg shadow-lg p-4 border border-border">
+          
+            {/* ... Badge JSX ... */}
+                      <div className="absolute -top-4 -right-4 bg-background rounded-lg shadow-lg p-4 border border-border">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-500 rounded flex items-center justify-center">
                 <span className="text-white text-xs font-bold">G</span>
@@ -181,6 +127,8 @@ const GoogleReviews = () => {
             </div>
           </div>
         </div>
+          
+        
 
         {/* CTA */}
         <div className="text-center mt-12">
@@ -189,7 +137,7 @@ const GoogleReviews = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => window.location.href = '/contact-page'}
+              onClick={() => navigate('/contact-page')}
               className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-600 transition-colors"
             >
               Start Your Project

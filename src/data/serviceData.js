@@ -32,7 +32,6 @@ import laserGalleryBrackets from '../assets/laser-gallery-brackets.jpg';
 import laserGalleryArt from '../assets/laser-gallery-art.jpg';
 
 
-
 import uvHeroImage from '../assets/uv-hero-image.jpg';
 import uvPrinterEquipment from '../assets/uvprinter.jpg';
 
@@ -72,7 +71,7 @@ import plottingGalleryArt from '../assets/plotting-gallery-art.jpg';
 
 
 import tShirtHeroImage from '../assets/t-shirt-hero-image.jpg';
-import tShirtEquipment from '../assets/heatpress.jpg';
+import tShirtEquipment from '../assets/dtf-printer.jpg';
 
 import tShirtGalleryFirm from '../assets/t-shirt-gallery-firm.jpg';
 import tShirtGalleryDecorative from '../assets/t-shirt-gallery-decorative.jpg';
@@ -82,13 +81,14 @@ import tShirtGalleryDisplays from '../assets/t-shirt-gallery-displays.jpg';
 import tShirtGalleryBrackets from '../assets/t-shirt-gallery-brackets.jpg';
 import tShirtGalleryArt from '../assets/t-shirt-gallery-art.jpg';
 
-
+import offsetPrintingHeroImage from '../assets/offset-printer.jpg';
 
 // 2. DEFINE YOUR SERVICES
 export const services = 
 {
-    "cnc-cutting-services":{
+    "cnc-cutting":{
         id: 2,
+    path: "/cnc-cutting-services-page",
     title: "CNC Cutting Services",
     category: "Precision Fabrication",
     description: "Professional CNC cutting services for precise fabrication of various materials including wood, acrylic, metal, and foam with custom design capabilities.",
@@ -154,7 +154,7 @@ export const services =
          {
       name: "Industrial CNC Router",
       description: "High-precision CNC router for accurate cutting of various materials with professional finishing.",
-      equipmentImage: cncEquipmentRouter,
+      image: cncEquipmentRouter,
       status: "Active",
       maxSize: "2.5m x 1.5m x 200mm",
       capabilities: [
@@ -194,50 +194,43 @@ export const services =
     ],
      gallery: [ {
       id: 1,
-      title: "Architectural Panels",
-      category: "Architecture",
+      
+      
       image: cncGalleryPanels,
     },
     {
       id: 2,
-      title: "Custom Signage",
-      category: "Signage",
+     
       image: cncGallerySignage,
     },
     {
       id: 3,
-      title: "Decorative Elements",
-      category: "Decoration",
+     
       image: cncGalleryDecorative,
     },
     {
       id: 4,
-      title: "Prototype Parts",
-      category: "Prototyping",
+      
       image: cncGalleryPrototypes,
     },
     {
       id: 5,
-      title: "Furniture Components",
-      category: "Furniture",
+     
       image: cncGalleryFurniture,
     },
     {
       id: 6,
-      title: "Display Stands",
-      category: "Displays",
+      
       image: cncGalleryDisplays,
     },
     {
       id: 7,
-      title: "Custom Brackets",
-      category: "Hardware",
+     
       image: cncGalleryBrackets,
     },
     {
       id: 8,
-      title: "Art Installations",
-      category: "Art",
+     
       image: cncGalleryArt,
     }
    ],
@@ -299,6 +292,7 @@ export const services =
  ],
     related: [ {
       title: "Laser Cutting",
+      path: "/laser-cutting-services-page",
       category: "Precision Cutting",
       description: "High-precision laser cutting for intricate designs and detailed fabrication.",
       image: relatedLaserCuttingImg,
@@ -308,6 +302,7 @@ export const services =
     },
     {
       title: "Large Format Printing",
+      path: "/services-detail-page",
       category: "Digital Printing",
       description: "Professional large format printing for banners, posters, and displays.",
       image: relatedLargeFormatImg,
@@ -317,6 +312,7 @@ export const services =
     },
     {
       title: "UV Printing",
+      path: "/uv-printing-services-page",
       category: "Specialty Printing",
       description: "Direct UV printing on various materials including glass, metal, and plastics.",
       image: relatedUvPrintingImg,
@@ -330,6 +326,7 @@ export const services =
 
   "laser-cutting":{
     id: 3,
+    path: "/laser-cutting-services-page",
     title: "Laser Cutting Services",
     category: "Precision Laser Technology",
     description: "Professional laser cutting services for intricate designs and detailed fabrication on various materials including wood, acrylic, leather, and fabric with precision and design complexity capabilities.",
@@ -435,51 +432,43 @@ export const services =
   ],
     gallery: [  {
       id: 1,
-      title: "Signage",
-      category: "Signage",
+      
       image: laserGallerySignage
     },
     {
       id: 2,
-      title: "Decorative Panels",
-      category: "Decoration",
+     
       image: laserGalleryBrackets
     },
     {
       id: 3,
-      title: "Custom Signage",
-      category: "Signage",
+      
       image: laserGalleryPrototypes
     },
     {
       id: 4,
-      title: "Textile Patterns",
-      category: "Textiles",
-      image: laserGalleryFurniture
+     
+      image: laserGalleryDecorative
     },
     {
       id: 5,
-      title: "Architectural Models",
-      category: "Architecture",
+      
       image: laserGalleryDisplays
     },
     {
       id: 6,
-      title: "Art Installations",
-      category: "Art",
-      image: laserGalleryArt
+      
+      image: laserGalleryPanels
     },
     {
       id: 7,
-      title: "Leather Goods",
-      category: "Leather",
-      image: laserGalleryDecorative
+      
+      image: laserGalleryArt
     },
     {
       id: 8,
-      title: "Precision Stencils",
-      category: "Stencils",
-      image: laserGalleryPanels
+      
+      image: laserGalleryFurniture
     }
  ],
     pricing: [  {
@@ -540,6 +529,7 @@ export const services =
  ],
     related: [  {
       title: "CNC Cutting",
+      path: "/cnc-cutting-services",
       category: "Precision Fabrication",
       description: "Professional CNC cutting services for precise fabrication of various materials.",
       image: relatedCncCuttingImg,
@@ -549,6 +539,7 @@ export const services =
     },
     {
       title: "Large Format Printing",
+      path: "/large-format-printing-services",
       category: "Digital Printing",
       description: "Professional large format printing for banners, posters, and displays.",
       image: relatedLargeFormatImg,
@@ -558,6 +549,7 @@ export const services =
     },
     {
       title: "UV Printing",
+      path: "/uv-printing-services",
       category: "Specialty Printing",
       description: "Direct UV printing on various materials including glass, metal, and plastics.",
       image: relatedUvPrintingImg,
@@ -570,6 +562,7 @@ export const services =
 
     "plotting-services": {
          id: 2,
+    path: "/plotting-services-page",     
     title: "Plotting Services",
     category: "Technical Drawing",
     description: "Professional plotting services for technical drawings, architectural plans, engineering drawings, and CAD documentation with precision and clarity.",
@@ -673,50 +666,42 @@ export const services =
   ],
      gallery: [  {
       id: 1,
-      title: "Architectural Floor Plan",
-      category: "Architecture",
+     
       image: plottingGalleryArt,
     },
     {
       id: 2,
-      title: "Engineering Schematic",
-      category: "Engineering",
+      
       image: plottingGalleryBrackets,
     },
     {
       id: 3,
-      title: "Construction Drawing",
-      category: "Construction",
+     
       image: plottingGalleryDecorative
     },
     {
       id: 4,
-      title: "Site Plan",
-      category: "Planning",
+      
       image: plottingGalleryDisplays
     },
     {
       id: 5,
-      title: "Electrical Layout",
-      category: "Electrical",
+      
       image: plottingGalleryFurniture
     },
     {
       id: 6,
-      title: "Mechanical Drawing",
-      category: "Mechanical",
+     
       image: plottingGalleryPrototypes
     },
     {
       id: 7,
-      title: "Survey Map",
-      category: "Surveying",
+      
       image: plottingGallerySignage
     },
     {
       id: 8,
-      title: "Technical Specification",
-      category: "Documentation",
+      
       image: plottingGalleryPanels
     }
  ],
@@ -778,6 +763,7 @@ export const services =
  ],
     related: [  {
       title: "Large Format Printing",
+      path: "/large-format-printing-services-page",
       category: "Branding and Printing",
       description: "Professional large format printing for banners, posters, and signage applications.",
       image: relatedLargeFormatImg,
@@ -797,7 +783,7 @@ export const services =
     },
     {
       title: "CNC cutting services",
-      path: "/ cnc-cutting-services-page",
+      path: "/cnc-cutting-services-page",
       category: "Production",
       description: "Professional CNC cutting services for precise fabrication of various materials.",
       image: relatedCncCuttingImg,
@@ -810,6 +796,7 @@ export const services =
 
      "large-format":{
     id: 1,
+    path: "/service-detail-page",
     title: "Large Format Printing",
     category: "Digital Printing",
     description: "Professional large format printing services for banners, posters, signage, and displays with vibrant colors and exceptional quality.",
@@ -914,44 +901,37 @@ export const services =
   ],
      gallery: [   {
       id: 1,
-      title: "Corporate Banner",
-      category: "Banners",
+      
       image: largeGalleryArt
     },
     {
       id: 2,
-      title: "Event Backdrop",
-      category: "Backdrops",
+      
       image: largeGalleryBrackets
     },
     {
       id: 3,
-      title: "Retail Signage",
-      category: "Signage",
+      
       image: largeGalleryDecorative
     },
     {
       id: 4,
-      title: "Trade Show Display",
-      category: "Displays",
+     
       image: largeGalleryDisplays
     },
     {
       id: 5,
-      title: "Vehicle Graphics",
-      category: "Vehicle Wraps",
+      
       image: largeGalleryFurniture
     },
     {
       id: 6,
-      title: "Building Wrap",
-      category: "Building Wraps",
+      
       image: largeGalleryPrototypes
     },
     {
       id: 7,
-      title: "Conference Banner",
-      category: "Banners",
+      
       image: largeGallerySignage
     }
  ],
@@ -1045,6 +1025,7 @@ export const services =
 },
     "t-shirt-printing":{
     id: 6,
+    path: "/t-shirt-printing-services-page",
     title: "T-shirt Printing Services",
     category: "Custom Apparel",
     description: "Professional custom t-shirt printing services targeting businesses, events, and personal branding needs with comprehensive printing method options and bulk pricing in KES currency.",
@@ -1149,52 +1130,41 @@ export const services =
   ],
      gallery: [    {
       id: 1,
-      title: "Corporate Branded Shirts",
-      category: "Corporate",
+      
       image: tShirtGalleryArt
     },
     {
       id: 2,
-      title: "Event T-shirts",
-      category: "Events",
+      
       image: tShirtGalleryBrackets
     },
     {
       id: 3,
-      title: "Team Sports Jerseys",
-      category: "Sports",
+      
       image: tShirtGalleryDecorative
     },
     {
       id: 4,
-      title: "Custom Hoodies",
-      category: "Hoodies",
+     
       image: tShirtGalleryDisplays
     },
     {
       id: 5,
-      title: "Promotional Polo Shirts",
-      category: "Promotional",
+      
       image: tShirtGalleryFirm
     },
     {
       id: 6,
-      title: "Custom Art Designs",
-      category: "Artistic",
+      
       image: tShirtGalleryFurniture
     },
     {
       id: 7,
-      title: "School Uniforms",
-      category: "School",
+      
       image: tShirtGalleryPrototypes
     },
-    {
-      id: 8,
-      title: "Band Merchandise",
-      category: "Merchandise",
-      image: tShirtGalleryPrototypes
-    }
+    
+
  ],
     pricing: [     {
       name: "Starter Package",
@@ -1288,6 +1258,7 @@ export const services =
   "uv-printing": {
     
     id: 3,
+    path: "/uv-printing-services-page",
     title: "UV Printing Services",
     category: "Specialty Printing",
     description: "Advanced UV printing services for premium materials and custom applications offering exceptional durability, vibrant colors, and versatile substrate compatibility.",
@@ -1392,44 +1363,37 @@ export const services =
   ],
      gallery: [     {
       id: 1,
-      title: "Glass Panel Signage",
-      category: "Glass",
+      
       image: uvGalleryArt
     },
     {
       id: 2,
-      title: "Metal Wall Art",
-      category: "Metal",
+      
       image: uvGalleryBrackets
     },
     {
       id: 3,
-      title: "Acrylic Display",
-      category: "Acrylic",
+      
       image: uvGalleryDecorative
     },
     {
       id: 4,
-      title: "Wood Promotional Item",
-      category: "Wood",
+      
       image: uvGalleryDisplays
     },
     {
       id: 5,
-      title: "Ceramic Tile Design",
-      category: "Ceramic",
+      
       image: uvGalleryFurniture
     },
     {
       id: 6,
-      title: "Phone Case Printing",
-      category: "Accessories",
+     
       image: uvGalleryPrototypes
     },
     {
       id: 7,
-      title: "Decorative Panel",
-      category: "Decoration",
+     
       image: uvGallerySignage
     }
  ],
@@ -1511,15 +1475,29 @@ export const services =
     },
     {
       title: "Laser Engraving",
-      path:" /laser-cutting-services-page",
+      path:"/laser-cutting-services-page",
       category: "Engraving",
       description: "Professional laser engraving services for promotional items and custom applications.",
-      image: relatedLaserEngravingImg,
+      image: relatedLaserCuttingImg,
       startingPrice: 250,
       turnaround: "1-2 days",
       features: ["Precision Engraving", "Various Materials", "Custom Designs"]
     } ]
     
+  },
+
+   "offset-printing": {
+    id: 7, // Give it a unique ID
+    path: "/offset-printing-services-page", // A future path
+    title: "Offset Printing Services",
+    category: "Commercial Printing",
+    description: "High-volume commercial printing for books, brochures, packaging, and more with exceptional quality and color consistency.",
+    heroImage: offsetPrintingHeroImage, // <-- Using the new imported image
+    // You can leave these other properties as empty arrays for now
+    equipment: [], 
+    gallery: [],
+    pricing: [],
+    related: []
   }
   
 };

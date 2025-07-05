@@ -4,6 +4,7 @@ import Icon from '../../../components/AppIcon';
 import Image from '../../../components/AppImage';
 import Button from '../../../components/ui/Button';
 
+import whyChooseUsImage from '../../../assets/why-choose-luna.jpg';
 const CorporateServices = () => {
   const navigate = useNavigate();
 
@@ -258,7 +259,7 @@ const CorporateServices = () => {
             
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src={whyChooseUsImage} 
                 alt="Political campaign printing and election materials"
                 className="w-full h-80 object-cover rounded-xl shadow-lg"
               />
@@ -321,7 +322,7 @@ const CorporateServices = () => {
               iconName="MessageCircle"
               iconPosition="left"
               onClick={() => {
-                const phoneNumber = '+254700000000';
+                const phoneNumber = '+254791159618';
                 const message = 'Hello! I would like to discuss printing solutions for the 2027 Kenya elections. Please provide more information about your campaign packages.';
                 const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
                 window.open(whatsappUrl, '_blank');

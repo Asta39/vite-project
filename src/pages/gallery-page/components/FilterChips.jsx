@@ -21,40 +21,9 @@ const FilterChips = ({
         { value: 'plotting', label: 'Plotting' }
       ]
     },
-    {
-      id: 'industry',
-      label: 'Industry',
-      options: [
-        { value: 'corporate', label: 'Corporate' },
-        { value: 'events', label: 'Events' },
-        { value: 'retail', label: 'Retail' },
-        { value: 'education', label: 'Education' },
-        { value: 'healthcare', label: 'Healthcare' },
-        { value: 'hospitality', label: 'Hospitality' }
-      ]
-    },
-    {
-      id: 'material',
-      label: 'Material',
-      options: [
-        { value: 'vinyl', label: 'Vinyl' },
-        { value: 'acrylic', label: 'Acrylic' },
-        { value: 'wood', label: 'Wood' },
-        { value: 'metal', label: 'Metal' },
-        { value: 'fabric', label: 'Fabric' },
-        { value: 'paper', label: 'Paper' }
-      ]
-    },
-    {
-      id: 'scale',
-      label: 'Project Scale',
-      options: [
-        { value: 'small', label: 'Small (1-10 items)' },
-        { value: 'medium', label: 'Medium (11-50 items)' },
-        { value: 'large', label: 'Large (51-200 items)' },
-        { value: 'bulk', label: 'Bulk (200+ items)' }
-      ]
-    }
+    
+    
+    
   ];
 
   const activeFilterCount = activeFilters.length;

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { services } from '../../data/serviceData';
+import { services } from '../../data/serviceData'; // 1. Your central data import
 
+// --- UI Component Imports ---
 import Header from '../../components/ui/Header';
 import ServiceHero from './components/ServiceHero';
 import ServiceDetails from './components/ServiceDetails';
@@ -13,101 +14,71 @@ import RelatedServices from './components/RelatedServices';
 import ContactForm from './components/ContactForm';
 import Breadcrumb from './components/Breadcrumb';
 
+import logoImage from '../../assets/luna-logo2.png';
 
 const CNCCuttingServicesPage = () => {
   const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState(null);
 
-  // CNC Cutting service data
-  const pageData = services["cnc-cutting-services"];
+  // 2. Get the data for THIS page using its correct key from your central file.
+  const pageData = services['cnc-cutting']; 
 
-  // 2. DEFINE SEO VARIABLES FROM YOUR EXISTING DATA
+  // 3. All old state (useState, useEffect) and local data arrays are now DELETED.
+
+  // 4. Handle cases where the data might not be found (e.g., typo in the key)
+  if (!pageData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Service Not Found</h1>
+          <p>The data for 'cnc-cutting' could not be found. Please check the key in serviceData.js.</p>
+        </div>
+      </div>
+    );
+  }
+
+  // 5. Define SEO variables using the single `pageData` object.
   const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high-precision machines for wood, acrylic, and metal. Get a free quote for your custom fabrication project today at Luna Graphics.`;
-  const pageUrl = `https://lunagraphics.co.ke/cnc-cutting-services-page`; // Use the actual URL for this page
-  const imageUrl = serviceData.heroImage; // Use this page's hero image for social sharing
+  const pageDescription = pageData.description; // Using the description from your data
+  const pageUrl = `https://lunagraphics.co.ke${pageData.path}`;
+  const imageUrl = pageData.heroImage;
   const brandName = "Luna Graphics";
-  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
-
-  
-
-
-
-
-
-
+  const twitterHandle = "@YourTwitterHandle";
 
   const breadcrumbItems = [
-    { label: "Home", path: "/homepage" },
+    { label: "Home", path: "/" },
     { label: "Services", path: "/services" },
-    { label: serviceData.title, path: null }
+    { label: pageData.title, path: null }
   ];
-
-  useEffect(() => {
-    setSelectedService(serviceData);
-    window.scrollTo(0, 0);
-  }, []);
-
+  
+  // --- Updated handlers that use the correct `pageData` variable ---
   const handleGetQuote = (packageData = null) => {
     navigate('/contact-page', { 
       state: { 
-        service: serviceData.title,
+        service: pageData.title,
         package: packageData?.name 
       }
     });
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254791159618';
-    const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information?`;
+    const phoneNumber = '254791159618';
+    const message = `Hello! I'm interested in ${pageData.title} services. Could you please provide more information?`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
-
-  const handleServiceClick = (service) => {
-    // Navigate to specific service pages
-    if (service.title === "Laser Cutting") {
-      navigate('/laser-cutting-services-page');
-    } else if (service.title === "Large Format Printing") {
-      navigate('/service-detail-page');
-    } else if (service.title === "UV Printing") {
-      navigate('/uv-printing-services-page');
-    }
-    window.scrollTo(0, 0);
-  };
-
-  if (!selectedService) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="pt-16 flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-text-secondary">Loading service details...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  
+  // The old handleServiceClick function is removed as RelatedServices handles its own navigation.
 
   return (
     <div className="min-h-screen bg-background">
-            {/* 3. ADD THE HELMET COMPONENT RIGHT AT THE TOP */}
       <Helmet>
-        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={pageUrl} />
-
-        {/* --- Open Graph / Facebook --- */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={pageUrl} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:image" content={imageUrl} />
         <meta property="og:site_name" content={brandName} />
-
-        {/* --- Twitter --- */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={pageUrl} />
         <meta name="twitter:title" content={pageTitle} />
@@ -115,45 +86,44 @@ const CNCCuttingServicesPage = () => {
         <meta name="twitter:image" content={imageUrl} />
         <meta name="twitter:site" content={twitterHandle} />
       </Helmet>
+      
       <Header />
       
       <main className="pt-16">
         <Breadcrumb items={breadcrumbItems} />
         
+        {/* 6. Pass the correct data from `pageData` to all child components */}
         <ServiceHero 
-          service={selectedService}
+          service={pageData}
           onGetQuote={handleGetQuote}
           onWhatsAppChat={handleWhatsAppChat}
         />
         
-        <ServiceDetails service={selectedService} />
+        <ServiceDetails service={pageData} />
         
-        <EquipmentShowcase equipment={equipmentData} />
+        <EquipmentShowcase equipment={pageData.equipment} />
         
-        <SampleGallery samples={sampleGalleryData} />
+        <SampleGallery samples={pageData.gallery} />
         
-        <PricingTable 
-          pricingPackages={pricingPackages}
-          onGetQuote={handleGetQuote}
-        />
+        <PricingTable pricingPackages={pageData.pricing} />
         
-        <RelatedServices 
-          relatedServices={relatedServicesData}
-          onServiceClick={handleServiceClick}
-        />
+        <RelatedServices relatedServices={pageData.related} />
         
-        <ContactForm serviceName={selectedService.title} />
+        <ContactForm serviceName={pageData.title} />
       </main>
       
-      {/* Footer */}
+      {/* --- Footer remains the same --- */}
       <footer className="bg-primary text-white py-12">
+        {/* ... your footer JSX ... */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">H</span>
-                </div>
+                 <img 
+                  src={logoImage} 
+                  alt="Luna Graphics Logo" 
+                  className="w-12 h-12 rounded-lg object-cover" // Added size and rounded corners
+                />
                 <div>
                   <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
@@ -179,7 +149,7 @@ const CNCCuttingServicesPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 791 159 618 </li>
+                <li>‪+254 791 159 618‬ </li>
                 <li>info@lunagraphics.co.ke</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
@@ -187,6 +157,7 @@ const CNCCuttingServicesPage = () => {
             </div>
           </div>
         </div>
+
       </footer>
     </div>
   );

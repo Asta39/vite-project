@@ -88,7 +88,7 @@ const ServicePackages = () => {
       color: 'primary',
       services: [
         { service: 'Campaign Posters (A3)', quantities: ['500 pcs', '1,000 pcs', '5,000 pcs', '10,000 pcs'], prices: ['KES 20,000', 'KES 38,000', 'KES 170,000', 'KES 400,000'], features: ['Weather resistant', 'UV protected', 'Full color'] },
-        { service: 'Banners & Billboards', quantities: ['10 pcs', '25 pcs', '50 pcs', '100 pcs'], prices: ['KES 20,000', 'KES 45,000', 'KES 70,000', 'KES 150,000'], features: ['Large format', 'Outdoor grade', 'Custom sizes'] },
+        { service: 'Banners (1m by 3m)', quantities: ['10 pcs', '25 pcs', '50 pcs', '100 pcs'], prices: ['KES 20,000', 'KES 45,000', 'KES 70,000', 'KES 150,000'], features: ['Large format', 'Outdoor grade', 'Custom sizes'] },
         { service: 'T-shirts & Merchandise', quantities: ['100 pcs', '500 pcs', '1,000 pcs', '5,000 pcs'], prices: ['KES 90,000', 'KES 425,000', 'KES 750,000', 'KES 4,500,000'], features: ['Quality cotton', 'Screen printing', 'Multiple colors'] },
         { service: 'Flyers & Leaflets', quantities: ['5,000 pcs', '10,000 pcs', '25,000 pcs', '50,000 pcs'], prices: ['KES 85,000', 'KES 130,000', 'KES 375,000', 'KES 500,000'], features: ['A5 size', 'Glossy finish', 'Fast delivery'] }
       ]

@@ -1,106 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { services } from '../../data/serviceData';
 
+// --- 1. UPDATED, CORRECT IMPORT PATHS ---
 import Header from '../../components/ui/Header';
-import ServiceHero from '../service-detail-page/components/ServiceHero';
-import ServiceDetails from '../service-detail-page/components/ServiceDetails';
-import EquipmentShowcase from '../service-detail-page/components/EquipmentShowcase';
-import SampleGallery from '../service-detail-page/components/SampleGallery';
-import PricingTable from '../service-detail-page/components/PricingTable';
-import RelatedServices from '../service-detail-page/components/RelatedServices';
-import ContactForm from '../service-detail-page/components/ContactForm';
-import Breadcrumb from '../service-detail-page/components/Breadcrumb';
+import ServiceHero from '../../components/services/ServiceHero';
+import ServiceDetails from '../../components/services/ServiceDetails';
+import EquipmentShowcase from '../../components/services/EquipmentShowcase';
+import SampleGallery from '../../components/services/SampleGallery';
+import PricingTable from '../../components/services/PricingTable';
+import RelatedServices from '../../components/services/RelatedServices';
+import ContactForm from '../../components/services/ContactForm';
+import Breadcrumb from '../../components/services/Breadcrumb';
+import logoImage from '../../assets/luna-logo2.png';
 
 const TShirtPrintingServicesPage = () => {
   const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState(null);
 
+  // 2. Get the data for THIS page using its key from your central file.
+  const pageData = services['t-shirt-printing']; 
 
-  const pageData = services["t-shirt-printing"];
-  // T-shirt Printing service specific data
+  // 3. Safety check to prevent crashes if data is not found.
+  if (!pageData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Service Not Found</h1>
+          <p>The data for 't-shirt-printing' could not be found. Please check the key in serviceData.js.</p>
+        </div>
+      </div>
+    );
+  }
 
-    ;
-
-    const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high-precision machines for all types of clothe material. Get a free quote for your custom fabrication project today at Luna Graphics.`;
-  const pageUrl = `https://lunagraphics.co.ke/t-shirt-printing-services-page`; // Use the actual URL for this page
-  const imageUrl = pageData.heroImage; // Use this page's hero image for social sharing
+  // 4. Define SEO variables using the single `pageData` object.
+  const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
+  const pageDescription = pageData.description;
+  const pageUrl = `https://lunagraphics.co.ke${pageData.path}`;
+  const imageUrl = pageData.heroImage;
   const brandName = "Luna Graphics";
-  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
+  const twitterHandle = "@YourTwitterHandle";
 
   const breadcrumbItems = [
-    { label: "Home", path: "/homepage" },
+    { label: "Home", path: "/" },
     { label: "Services", path: "/services" },
-    { label: serviceData.title, path: null }
+    { label: pageData.title, path: null }
   ];
-
-  useEffect(() => {
-    setSelectedService(serviceData);
-    window.scrollTo(0, 0);
-  }, []);
-
+  
+  // 5. Update handlers to use the correct `pageData` variable.
   const handleGetQuote = (packageData = null) => {
     navigate('/contact-page', { 
       state: { 
-        service: serviceData.title,
+        service: pageData.title,
         package: packageData?.name 
       }
     });
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254791159618';
-    const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information about bulk pricing and design options?`;
+    const phoneNumber = '254791159618';
+    const message = `Hello! I'm interested in ${pageData.title} services. Could you please provide more information?`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleServiceClick = (service) => {
-    // Navigate to specific service pages
-    if (service.title === "Large Format Printing") {
-      navigate('/service-detail-page');
-    } else if (service.title === "UV Printing") {
-      navigate('/uv-printing-services-page');
-    } else if (service.title === "Corporate Services") {
-      navigate('/corporate-services-page');
-    }
-    window.scrollTo(0, 0);
-  };
-
-  if (!selectedService) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="pt-16 flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-text-secondary">Loading service details...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background">
-
       <Helmet>
-        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={pageUrl} />
-
-        {/* --- Open Graph / Facebook --- */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={pageUrl} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:image" content={imageUrl} />
         <meta property="og:site_name" content={brandName} />
-
-        {/* --- Twitter --- */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={pageUrl} />
         <meta name="twitter:title" content={pageTitle} />
@@ -108,47 +81,43 @@ const TShirtPrintingServicesPage = () => {
         <meta name="twitter:image" content={imageUrl} />
         <meta name="twitter:site" content={twitterHandle} />
       </Helmet>
-
-
+      
       <Header />
       
       <main className="pt-16">
         <Breadcrumb items={breadcrumbItems} />
         
+        {/* 6. Pass the correct data from `pageData` to all child components */}
         <ServiceHero 
-          service={selectedService}
+          service={pageData}
           onGetQuote={handleGetQuote}
           onWhatsAppChat={handleWhatsAppChat}
         />
         
-        <ServiceDetails service={selectedService} />
+        <ServiceDetails service={pageData} />
         
-        <EquipmentShowcase equipment={equipmentData} />
+        <EquipmentShowcase equipment={pageData.equipment} />
         
-        <SampleGallery samples={sampleGalleryData} />
+        <SampleGallery samples={pageData.gallery} />
         
-        <PricingTable 
-          pricingPackages={pricingPackages}
-          onGetQuote={handleGetQuote}
-        />
+        <PricingTable pricingPackages={pageData.pricing} />
         
-        <RelatedServices 
-          relatedServices={relatedServicesData}
-          onServiceClick={handleServiceClick}
-        />
+        <RelatedServices relatedServices={pageData.related} />
         
-        <ContactForm serviceName={selectedService.title} />
+        <ContactForm serviceName={pageData.title} />
       </main>
       
-      {/* Footer */}
       <footer className="bg-primary text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ... your footer JSX ... */}
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">LG</span>
-                </div>
+                <img 
+                  src={logoImage} 
+                  alt="Luna Graphics Logo" 
+                  className="w-12 h-12 rounded-lg object-cover" // Added size and rounded corners
+                />
                 <div>
                   <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
@@ -174,14 +143,15 @@ const TShirtPrintingServicesPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 791 159 618</li>
-                <li>info.lunagraphics@gmail.com</li>
+                <li>‪+254 791 159 618‬ </li>
+                <li>info@lunagraphics.co.ke</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
               </ul>
             </div>
           </div>
         </div>
+
       </footer>
     </div>
   );

@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 
+import logoImage from '../../../assets/luna-logo2.png';
+
 const Footer = () => {
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
@@ -47,9 +49,12 @@ const Footer = () => {
 
   const Logo = () => (
     <div className="flex items-center space-x-3">
-      <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-        <Icon name="Printer" size={24} color="white" />
-      </div>
+       <img 
+        src={logoImage} 
+        alt="Luna Graphics Logo" 
+        // We can use the same consistent styling as the header
+        className="w-12 h-12 rounded-lg object-cover" 
+      />
       <div className="flex flex-col">
         <span className="text-xl font-heading font-bold text-accent">Luna</span>
         <span className="text-sm font-heading font-semibold text-secondary">Graphics</span>

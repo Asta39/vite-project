@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Icon from '../AppIcon';
 import Button from './Button';
 
+// 1. IMPORT YOUR LOGO IMAGE
+import logoImage from '../../assets/luna-logo2.png';
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
@@ -105,16 +108,19 @@ const Header = () => {
   };
 
   const Logo = () => (
-    <div className="flex items-center space-x-3">
-      <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-        <Icon name="Printer" size={24} color="white" />
-      </div>
-      <div className="flex flex-col">
-        <span className="text-xl font-heading font-bold text-primary">Luna</span>
-        <span className="text-sm font-heading font-semibold text-secondary">Graphics</span>
-      </div>
+<div className="flex items-center space-x-3"> 
+    <img 
+      src={logoImage} 
+      alt="Luna Graphics Logo" 
+      // 2. Updated the classes for size, rounding, and object fitting
+      className="w-12 h-12 rounded-lg object-cover" 
+    />
+    <div className="flex flex-col">
+      <span className="text-xl font-heading font-bold text-primary">Luna</span>
+      <span className="text-sm font-heading font-semibold text-secondary">Graphics</span>
     </div>
-  );
+  </div>
+);
 
   return (
     <header 

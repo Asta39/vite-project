@@ -10,6 +10,8 @@ import CaseStudies from './components/CaseStudies';
 import ComplianceSection from './components/ComplianceSection';
 import CorporateQuoteForm from './components/CorporateQuoteForm';
 
+import logoImage from '../../assets/luna-logo2.png';
+
 
 const pageTitle = `Corporate Services in Nairobi | Luna Graphics`;
   const pageDescription = `Expert corporate services in Nairobi. Kenya's leading corporate printing partner, specializing in large-scale political campaigns, 
@@ -66,9 +68,11 @@ const CorporateServicesPage = () => {
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">H</span>
-                </div>
+                <img 
+                  src={logoImage} 
+                  alt="Luna Graphics Logo" 
+                  className="w-12 h-12 rounded-lg object-cover" // Added size and rounded corners
+                />
                 <div>
                   <div className="text-xl font-heading font-bold">Luna Graphics</div>
                   <div className="text-sm text-primary-200">Corporate Printing Solutions</div>

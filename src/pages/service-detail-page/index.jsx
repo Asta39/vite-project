@@ -1,87 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/pages/service-detail-page/index.jsx
+
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { services } from '../../data/serviceData';
 
+// --- 1. UPDATED, CORRECT IMPORT PATHS ---
 import Header from '../../components/ui/Header';
-import ServiceHero from './components/ServiceHero';
-import ServiceDetails from './components/ServiceDetails';
-import EquipmentShowcase from './components/EquipmentShowcase';
-import SampleGallery from './components/SampleGallery';
-import PricingTable from './components/PricingTable';
-import RelatedServices from './components/RelatedServices';
-import ContactForm from './components/ContactForm';
-import Breadcrumb from './components/Breadcrumb';
+import ServiceHero from '../../components/services/ServiceHero';
+import ServiceDetails from '../../components/services/ServiceDetails';
+import EquipmentShowcase from '../../components/services/EquipmentShowcase';
+import SampleGallery from '../../components/services/SampleGallery';
+import PricingTable from '../../components/services/PricingTable';
+import RelatedServices from '../../components/services/RelatedServices';
+import ContactForm from '../../components/services/ContactForm';
+import Breadcrumb from '../../components/services/Breadcrumb';
+import logoImage from '../../assets/luna-logo2.png';
 
 const ServiceDetailPage = () => {
   const navigate = useNavigate();
-  const [selectedService, setSelectedService] = useState(null);
+  const location = useLocation();
 
+  // 2. This page is now dynamic. It gets the key from the navigation state.
+  // We use 'large-format' as a safe default if no key is provided.
+  const serviceKey = location.state?.serviceKey || 'large-format';
+  
+  // 3. Look up the correct service data from your central object
+  const pageData = services[serviceKey];
 
-  const pageData = services["large-format"];
-  // Mock service data
-   
+  // 4. Handle the case where the data might not be found
+  if (!pageData) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold">Service Not Found</h1>
+          <p>The requested service data ('{serviceKey}') could not be found.</p>
+        </div>
+      </div>
+    );
+  }
 
-    const pageTitle = `${pageData.title} in Nairobi | Luna Graphics`;
-  const pageDescription = `Expert ${pageData.title} in Nairobi. We use high-precision machines for any type of large format printing materials. Get a free quote for your custom large format printing project today at Luna Graphics.`;
-  const pageUrl = `https://lunagraphics.co.ke/service-detail-page`; // Use the actual URL for this page
-  const imageUrl = pageData.heroImage; // Use this page's hero image for social sharing
+  // 5. Setup SEO variables using the dynamically loaded pageData
+  const pageTitle = `${pageData.title} | Luna Graphics`;
+  const pageDescription = pageData.description;
+  const pageUrl = `https://lunagraphics.co.ke${pageData.path || ''}`;
+  const imageUrl = pageData.heroImage;
   const brandName = "Luna Graphics";
-  const twitterHandle = "@YourTwitterHandle"; // Replace with your handle
-
-
+  const twitterHandle = "@YourTwitterHandle";
 
   const breadcrumbItems = [
-    { label: "Home", path: "/homepage" },
+    { label: "Home", path: "/" },
     { label: "Services", path: "/services" },
-    { label: serviceData.title, path: null }
+    { label: pageData.title, path: null }
   ];
 
-  useEffect(() => {
-    setSelectedService(serviceData);
-    window.scrollTo(0, 0);
-  }, []);
-
   const handleGetQuote = (packageData = null) => {
-    navigate('/contact-page', { 
-      state: { 
-        service: serviceData.title,
-        package: packageData?.name 
-      }
-    });
+    navigate('/contact-page', { state: { service: pageData.title, package: packageData?.name } });
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = '+254791159618';
-    const message = `Hello! I'm interested in ${serviceData.title} services. Could you please provide more information?`;
+    const phoneNumber = '254791159618';
+    const message = `Hello! I'm interested in ${pageData.title} services.`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleServiceClick = (service) => {
-    // In a real application, this would navigate to the specific service detail page
-    window.scrollTo(0, 0);
-  };
-
-  if (!selectedService) {
-    return (
-      <div className="min-h-screen bg-background">
-
-              <Helmet>
-        {/* --- Primary Meta Tags (MUST be unique for each page) --- */}
+  return (
+    <div className="min-h-screen bg-background">
+      <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={pageUrl} />
-
-        {/* --- Open Graph / Facebook --- */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={pageUrl} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:image" content={imageUrl} />
         <meta property="og:site_name" content={brandName} />
-
-        {/* --- Twitter --- */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={pageUrl} />
         <meta name="twitter:title" content={pageTitle} />
@@ -90,58 +83,31 @@ const ServiceDetailPage = () => {
         <meta name="twitter:site" content={twitterHandle} />
       </Helmet>
 
-        <Header />
-        <div className="pt-16 flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-text-secondary">Loading service details...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-background">
       <Header />
       
       <main className="pt-16">
         <Breadcrumb items={breadcrumbItems} />
         
-        <ServiceHero 
-          service={selectedService}
-          onGetQuote={handleGetQuote}
-          onWhatsAppChat={handleWhatsAppChat}
-        />
-        
-        <ServiceDetails service={selectedService} />
-        
-        <EquipmentShowcase equipment={equipmentData} />
-        
-        <SampleGallery samples={sampleGalleryData} />
-        
-        <PricingTable 
-          pricingPackages={pricingPackages}
-          onGetQuote={handleGetQuote}
-        />
-        
-        <RelatedServices 
-          relatedServices={relatedServicesData}
-          onServiceClick={handleServiceClick}
-        />
-        
-        <ContactForm serviceName={selectedService.title} />
+        <ServiceHero service={pageData} onGetQuote={handleGetQuote} onWhatsAppChat={handleWhatsAppChat} />
+        <ServiceDetails service={pageData} />
+        <EquipmentShowcase equipment={pageData.equipment} />
+        <SampleGallery samples={pageData.gallery} />
+        <PricingTable pricingPackages={pageData.pricing} />
+        <RelatedServices relatedServices={pageData.related} />
+        <ContactForm serviceName={pageData.title} />
       </main>
       
-      {/* Footer */}
       <footer className="bg-primary text-white py-12">
+        {/* ... your footer JSX ... */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">H</span>
-                </div>
+                <img 
+                  src={logoImage} 
+                  alt="Luna Graphics Logo" 
+                  className="w-12 h-12 rounded-lg object-cover" // Added size and rounded corners
+                />
                 <div>
                   <span className="text-xl font-heading font-bold">Luna Graphics</span>
                 </div>
@@ -167,14 +133,15 @@ const ServiceDetailPage = () => {
             <div>
               <h3 className="font-heading font-semibold mb-4">Contact Info</h3>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li>+254 791 159 618</li>
-                <li>info.lunagraphics@gmail.com</li>
+                <li>‪+254 791 159 618‬ </li>
+                <li>info@lunagraphics.co.ke</li>
                 <li>Nairobi, Kenya</li>
                 <li>Mon-Fri: 8AM-6PM</li>
               </ul>
             </div>
           </div>
         </div>
+
       </footer>
     </div>
   );

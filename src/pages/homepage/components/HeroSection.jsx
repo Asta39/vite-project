@@ -2,6 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
 import Image from '../../../components/AppImage';
+import Icon from '../../../components/AppIcon'; // Added Icon import for consistency
+
+// 1. IMPORT YOUR NEW HERO IMAGE
+// The path goes up three levels to get from this component's folder back to 'src'
+import heroSectionImage from '../../../assets/homepage-hero (2).png'; // <-- IMPORTANT: Replace with your actual filename
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -9,10 +14,6 @@ const HeroSection = () => {
   const handleGetQuote = () => {
     navigate('/contact-page');
   };
-
-  // const handleViewServices = () => {
-  //   navigate('/service-detail-page');
-  // };
 
   const handleWhatsAppClick = () => {
     const phoneNumber = '254791159618';
@@ -59,7 +60,8 @@ const HeroSection = () => {
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
-                    <span className="text-primary text-sm">✓</span>
+                    {/* Using AppIcon for consistency */}
+                    <Icon name={feature.icon} size={16} color="var(--color-primary)" />
                   </div>
                   <span className="text-sm font-medium text-text-secondary">{feature.text}</span>
                 </div>
@@ -78,9 +80,6 @@ const HeroSection = () => {
               >
                 Get Free Quote
               </Button>
-              
-              
-              
               <Button
                 variant="success"
                 size="lg"
@@ -113,9 +112,10 @@ const HeroSection = () => {
           {/* Hero Image */}
           <div className="relative">
             <div className="relative z-10">
+              {/* 2. USE THE IMPORTED VARIABLE IN THE SRC PROP */}
               <Image
-                src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Professional printing equipment and services at Halo Creatives"
+                src={heroSectionImage}
+                alt="Professional printing equipment and services at Luna Graphics"
                 className="w-full h-96 lg:h-[500px] object-cover rounded-2xl shadow-2xl"
               />
               
