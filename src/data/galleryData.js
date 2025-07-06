@@ -26,7 +26,7 @@ export const projects = [
     title: "Birthday Magazines",
     image: weddingSignageImg, // <-- Using imported variable
     description: "Birthday magazines that bring a vintage yet classy vibe to the eventy.",
-    serviceType: "uv-printing", industry: "events", material: "paper", scale: "small", turnaroundTime: "1 days", completedDate: "2022-01-20",
+    serviceType: "Digital Printing", industry: "events", material: "paper", scale: "small", turnaroundTime: "1 days", completedDate: "2022-01-20",
   },
   {
     id: 3,

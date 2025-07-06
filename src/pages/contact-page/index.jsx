@@ -12,6 +12,7 @@ const ContactPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  
   const handleEmergencyContact = () => {
     const message = 'URGENT: I need immediate assistance with my printing project.';
     window.open(`https://wa.me/254791159618?text=${encodeURIComponent(message)}`, '_blank');
@@ -271,16 +272,7 @@ const ContactPage = () => {
             >
               Get Quote Now
             </Button>
-            <Button
-              variant="accent"
-              size="lg"
-              iconName="Eye"
-              iconPosition="left"
-              onClick={() => window.open('/gallery-page', '_self')}
-              className="border-white text-white hover:bg-white hover:text-primary"
-            >
-              View Our Work
-            </Button>
+
           </div>
         </div>
       </section>
