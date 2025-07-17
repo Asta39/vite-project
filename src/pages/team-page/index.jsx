@@ -3,6 +3,7 @@ import Header from '../../components/ui/Header';
 import TeamHero from './components/TeamHero';
 import TeamStats from './components/TeamStats';
 import TeamSection from './components/TeamSection';
+import CareersSection from './components/CareersSection';
 import { Helmet } from 'react-helmet-async';
 
 
@@ -51,6 +52,8 @@ const TeamPage = () => {
       
       {/* Hero Section */}
       <TeamHero />
+      {/*Careers*/}
+      <CareersSection />
 
       {/* Team Stats */}
       <TeamStats />

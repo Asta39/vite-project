@@ -96,7 +96,7 @@ const ServicePackages = () => {
     corporate: {
       title: 'Corporate Branding Package',
       description: 'Professional branding materials for businesses and organizations',
-      color: 'secondary',
+      color: 'primary-900',
       services: [
         { service: 'Business Cards', quantities: ['500 pcs', '1,000 pcs', '2,500 pcs', '5,000 pcs'], prices: ['KES 10,000', 'KES 14,000', 'KES 45,000', 'KES 100,000'], features: ['Premium paper', 'Matt/Gloss finish', 'Double sided'] },
         { service: 'Corporate Brochures', quantities: ['250 pcs', '500 pcs', '1,000 pcs', '2,500 pcs'], prices: ['KES 4,250', 'KES 6,500', 'KES 15,000', 'KES 25,000'], features: ['Tri-fold design', 'High quality print', 'Custom design'] },

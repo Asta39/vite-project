@@ -22,7 +22,7 @@ const Footer = () => {
   const handleSocialClick = (platform) => {
     const urls = {
       instagram: 'https://www.instagram.com/lunagraphics_ke?igsh=MWY4NDZreXczM25meg==',
-      facebook: 'https://facebook.com/halocreatives',
+      facebook: 'https://www.facebook.com/share/1ZznhZ5yRk/',
       tiktok: 'https://www.tiktok.com/@lunagraphics_k3?_r=1&_d=ejmc62jig91h09&sec_uid=MS4wLjABAAAAZlbjAWOqOjTPynxBOV67SWTQr1V5ENcqjaS35yRfclTqT0nTu4UsCmIjaMZfJ7Jz&share_author_id=7183680267814978566&sharer_language=en&source=h5_m&u_code=e5al48ed8eg3bb&timestamp=1751362691&user_id=7176488124331426822&sec_user_id=MS4wLjABAAAATSIAFkAgEMhoE8rAvPr4ZJc6P66T1hwfNiIzpFFuuvqKGtTCWttlkw1fMcvoDTqM&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7518431460690003768&share_link_id=a40a8793-7ad4-47bc-bbe8-7b06401ba888&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=ChatShellActivity%2Cb5836&social_share_type=5&enable_checksum=1',
       pinterest: 'https://pin.it/3HZXaQKuX'
     };

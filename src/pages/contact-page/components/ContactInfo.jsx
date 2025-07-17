@@ -87,7 +87,7 @@ const socialLinks = [
   {
     platform: 'Facebook',
     icon: 'Facebook', // Correct name
-    url: 'https://facebook.com/halocreatives',
+    url: 'https://www.facebook.com/share/1ZznhZ5yRk/',
     followers: '2.5K'
   },
   {
