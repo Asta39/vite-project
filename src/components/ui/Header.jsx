@@ -129,21 +129,26 @@ const Header = () => {
     }
   }, []);
 
-  // Handle search
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      trackEvent('search', { category: 'Header', label: searchQuery });
-      navigate(`/shop?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
-    }
-  };
+  // Handle search - FIXED
+const handleSearch = (e) => {
+  e.preventDefault();
+  if (searchQuery.trim()) {
+    const searchTerm = searchQuery.trim();
+    console.log('Searching for:', searchTerm);
+    
+    // Always navigate to /shop with search param
+    navigate(`/shop?search=${encodeURIComponent(searchTerm)}`);
+    
+    // Clear search input
+    setSearchQuery('');
+  }
+};
 
   // Shop categories
   const shopCategories = [
     {
       label: 'All Products',
-      path: '/shop',
+      path: '/',
       icon: 'Grid',
       description: 'Browse all printing products'
     },
@@ -235,7 +240,7 @@ const Header = () => {
     },
     {
       label: 'Political Branding',
-      path: 'https://lunapolitics.co.ke ',
+      path: 'https://lunapolitics.co.ke  ',
       icon: 'Flag',
       description: 'Campaign materials & election solutions',
       isExternal: true
@@ -270,7 +275,7 @@ const Header = () => {
     },
     {
       label: 'Jobs',
-      path: 'https://lunaaccounts.co.ke ',
+      path: 'https://lunaaccounts.co.ke  ',
       icon: 'Briefcase',
       description: 'Join our team',
       isExternal: true
@@ -349,7 +354,7 @@ const Header = () => {
 
     const phoneNumber = '254791159618';
     const message = 'Hello! I would like to inquire about your printing services.';
-    const whatsappUrl = `https://wa.me/ ${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/  ${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -358,7 +363,7 @@ const Header = () => {
   };
 
   const isShopActive = () => {
-    return location.pathname.includes('/shop');
+    return location.pathname === '/' || location.pathname.includes('/shop');
   };
 
   const isCareersActive = () => {
@@ -407,11 +412,11 @@ const Header = () => {
               {/* Home */}
               <button
                 className={`px-3 py-2 text-sm font-semibold transition-colors duration-200 ${
-                  isActivePath('/')
+                  isActivePath('/homepage')
                     ? 'text-emerald-600 border-b-2 border-emerald-600' 
                     : 'text-gray-600 hover:text-emerald-600'
                 }`}
-                onClick={() => handleNavigation('/')}
+                onClick={() => handleNavigation('/homepage')}
               >
                 Home
               </button>
@@ -894,9 +899,9 @@ const Header = () => {
               {/* Home */}
               <button
                 className={`flex items-center space-x-3 w-full p-3 rounded-lg transition-colors duration-200 text-left border-b border-gray-100 ${
-                  isActivePath('/') ? 'bg-emerald-50 text-emerald-600' : 'text-gray-600 hover:bg-gray-50'
+                  isActivePath('/homepage') ? 'bg-emerald-50 text-emerald-600' : 'text-gray-600 hover:bg-gray-50'
                 }`}
-                onClick={() => handleNavigation('/')}
+                onClick={() => handleNavigation('/homepage')}
               >
                 <Icon name="Home" size={20} />
                 <span className="text-base font-medium">Home</span>

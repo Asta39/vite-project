@@ -7,20 +7,12 @@ import { useCart } from '../../../context/CartContext';
 
 const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
   const navigate = useNavigate();
-  const { addItem } = useCart();
+  const { addItem, canAddToCart, formatPrice } = useCart();
 
   // Get the first image from images array, or fallback to image property
   const productImage = product.images && product.images.length > 0 
     ? product.images[0] 
     : product.image;
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-KE', {
-      style: 'currency',
-      currency: 'KES',
-      minimumFractionDigits: 0
-    }).format(price);
-  };
 
   const handleCardClick = () => {
     navigate(`/shop/product/${product.id}`);
@@ -33,8 +25,16 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addItem(product, product.minOrder);
+    const success = addItem(product, product.minOrder);
+    if (!success) {
+      // If add to cart failed (inquire product), open inquiry modal instead
+      onInquire(product);
+    }
   };
+
+  // Check if product has valid price
+  const hasPrice = canAddToCart(product);
+  const displayPrice = formatPrice(product.price);
 
   if (viewMode === 'list') {
     return (
@@ -56,9 +56,14 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
               e.target.src = '/images/placeholder-product.jpg';
             }}
           />
-          {product.discount && (
+          {product.discount && hasPrice && (
             <div className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
               {product.discount}
+            </div>
+          )}
+          {!hasPrice && (
+            <div className="absolute top-2 left-2 px-2 py-1 bg-amber-500 text-white text-xs font-bold rounded">
+              Inquire
             </div>
           )}
         </div>
@@ -80,11 +85,17 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
           
           <div className="flex items-center justify-between mt-4">
             <div>
-              <span className="text-xl font-bold text-emerald-600">{formatPrice(product.price)}</span>
-              {product.oldPrice && (
-                <span className="text-sm text-gray-400 line-through ml-2">{formatPrice(product.oldPrice)}</span>
+              {hasPrice ? (
+                <>
+                  <span className="text-xl font-bold text-emerald-600">{displayPrice}</span>
+                  {product.oldPrice && (
+                    <span className="text-sm text-gray-400 line-through ml-2">{formatPrice(product.oldPrice)}</span>
+                  )}
+                  <span className="text-xs text-gray-500 block">/{product.priceUnit}</span>
+                </>
+              ) : (
+                <span className="text-xl font-bold text-amber-600">Inquire</span>
               )}
-              <span className="text-xs text-gray-500 block">/{product.priceUnit}</span>
             </div>
             <div className="flex gap-2">
               <Button 
@@ -97,15 +108,26 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
               >
                 View
               </Button>
-              <Button 
-                variant="primary" 
-                size="sm" 
-                className="bg-emerald-600 hover:bg-emerald-700"
-                onClick={handleAddToCart}
-              >
-                <Icon name="Plus" size={16} className="mr-1" />
-                Add
-              </Button>
+              {hasPrice ? (
+                <Button 
+                  variant="primary" 
+                  size="sm" 
+                  className="bg-emerald-600 hover:bg-emerald-700"
+                  onClick={handleAddToCart}
+                >
+                  <Icon name="Plus" size={16} className="mr-1" />
+                  Add
+                </Button>
+              ) : (
+                <Button 
+                  variant="primary" 
+                  size="sm" 
+                  className="bg-amber-500 hover:bg-amber-600"
+                  onClick={handleInquireClick}
+                >
+                  Inquire
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -113,7 +135,7 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
     );
   }
 
-  // GRID VIEW - Strict fixed heights
+  // GRID VIEW
   return (
     <motion.div 
       layout
@@ -124,7 +146,7 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
       onClick={handleCardClick}
       style={{ height: '420px' }}
     >
-      {/* Image container - fixed height */}
+      {/* Image container */}
       <div className="relative h-48 bg-gray-100 overflow-hidden flex-shrink-0">
         <img 
           src={productImage} 
@@ -136,13 +158,19 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
         />
         
         {/* Badges */}
-        {product.discount && (
+        {product.discount && hasPrice && (
           <div className="absolute top-3 left-3 px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
             {product.discount}
           </div>
         )}
         
-        {product.badge && !product.discount && (
+        {!hasPrice && (
+          <div className="absolute top-3 left-3 px-3 py-1 bg-amber-500 text-white text-xs font-bold rounded-full">
+            Inquire
+          </div>
+        )}
+
+        {product.badge && hasPrice && !product.discount && (
           <div className={`absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full ${
             product.badge === 'Hot' ? 'bg-red-500' :
             product.badge === 'New' ? 'bg-blue-500' :
@@ -166,22 +194,33 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
 
         {/* Quick action buttons on hover */}
         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex gap-2">
-          <Button 
-            variant="primary" 
-            size="sm" 
-            className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
-            onClick={handleAddToCart}
-          >
-            <Icon name="ShoppingCart" size={16} className="mr-1" />
-            Add
-          </Button>
+          {hasPrice ? (
+            <Button 
+              variant="primary" 
+              size="sm" 
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+              onClick={handleAddToCart}
+            >
+              <Icon name="ShoppingCart" size={16} className="mr-1" />
+              Add
+            </Button>
+          ) : (
+            <Button 
+              variant="primary" 
+              size="sm" 
+              className="flex-1 bg-amber-500 hover:bg-amber-600 text-white"
+              onClick={handleInquireClick}
+            >
+              Inquire
+            </Button>
+          )}
           <Button 
             variant="outline" 
             size="sm"
             className="bg-white border-white text-gray-900 hover:bg-gray-100"
             onClick={handleInquireClick}
           >
-            Inquire
+            Details
           </Button>
         </div>
       </div>
@@ -206,9 +245,15 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
         
         {/* Price */}
         <div className="flex items-baseline gap-2 mb-2">
-          <span className="text-lg font-bold text-emerald-600">{formatPrice(product.price)}</span>
-          {product.oldPrice && (
-            <span className="text-sm text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+          {hasPrice ? (
+            <>
+              <span className="text-lg font-bold text-emerald-600">{displayPrice}</span>
+              {product.oldPrice && (
+                <span className="text-sm text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+              )}
+            </>
+          ) : (
+            <span className="text-lg font-bold text-amber-600">Inquire</span>
           )}
         </div>
         
@@ -220,15 +265,26 @@ const ProductCard = ({ product, onInquire, viewMode = 'grid' }) => {
         {/* Footer with Add to Cart */}
         <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-auto">
           <span className="text-xs text-gray-500">Min: {product.minOrder}</span>
-          <Button 
-            variant="primary" 
-            size="sm"
-            className="bg-emerald-600 hover:bg-emerald-700"
-            onClick={handleAddToCart}
-          >
-            <Icon name="Plus" size={16} className="mr-1" />
-            Add
-          </Button>
+          {hasPrice ? (
+            <Button 
+              variant="primary" 
+              size="sm"
+              className="bg-emerald-600 hover:bg-emerald-700"
+              onClick={handleAddToCart}
+            >
+              <Icon name="Plus" size={16} className="mr-1" />
+              Add
+            </Button>
+          ) : (
+            <Button 
+              variant="primary" 
+              size="sm"
+              className="bg-amber-500 hover:bg-amber-600"
+              onClick={handleInquireClick}
+            >
+              Inquire
+            </Button>
+          )}
         </div>
       </div>
     </motion.div>

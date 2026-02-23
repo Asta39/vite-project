@@ -16,10 +16,63 @@ const EMAILJS_CONFIG = {
   PUBLIC_KEY: 'kiEUK4XklpodvcXo-'
 };
 
+// Helper functions for price handling
+const hasValidPrice = (price) => {
+  return typeof price === 'number' && !isNaN(price) && price > 0;
+};
+
+const isInquireProduct = (price) => {
+  if (typeof price === 'string') {
+    const lower = price.toLowerCase();
+    return lower === 'inquire' || lower === 'inquiry' || lower === 'contact for price' || lower === 'contact us';
+  }
+  return false;
+};
+
+const formatPrice = (price) => {
+  if (isInquireProduct(price)) {
+    return 'Inquire';
+  }
+  if (!hasValidPrice(price)) {
+    return 'Inquire';
+  }
+  return new Intl.NumberFormat('en-KE', {
+    style: 'currency',
+    currency: 'KES',
+    minimumFractionDigits: 0
+  }).format(price);
+};
+
+// ✅ FIXED: WhatsApp number formatter
+const formatWhatsAppNumber = (phone) => {
+  if (!phone) return '254791159618'; // Fallback to your number
+  
+  // Remove all non-digit characters
+  let cleaned = phone.replace(/\D/g, '');
+  
+  // Remove leading + if present
+  if (cleaned.startsWith('+')) {
+    cleaned = cleaned.substring(1);
+  }
+  
+  // Handle Kenyan numbers
+  if (cleaned.startsWith('0')) {
+    // Convert 07XX or 01XX to 2547XX or 2541XX
+    cleaned = '254' + cleaned.substring(1);
+  }
+  
+  // If it doesn't start with 254, assume it's a local number and add 254
+  if (!cleaned.startsWith('254')) {
+    cleaned = '254' + cleaned;
+  }
+  
+  return cleaned;
+};
+
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { addItem } = useCart();
+  const { addItem, canAddToCart } = useCart();
   
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -32,7 +85,7 @@ const ProductDetail = () => {
     const found = getProductById(productId);
     if (found) {
       setProduct(found);
-      setQuantity(found.minOrder);
+      setQuantity(found.minOrder || 1);
       setSelectedImage(0);
       window.scrollTo(0, 0);
     } else {
@@ -54,24 +107,29 @@ const ProductDetail = () => {
         .filter(p => p.category === product.category && p.id !== product.id)
         .slice(0, 4);
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-KE', {
-      style: 'currency',
-      currency: 'KES',
-      minimumFractionDigits: 0
-    }).format(price);
-  };
+  // Check if this product has a valid price or is inquire-only
+  const hasPrice = hasValidPrice(product.price);
+  const isInquireOnly = isInquireProduct(product.price);
 
+  // ✅ FIXED: WhatsApp handler with number formatting
   const handleWhatsApp = () => {
-    const message = `Hello! I'm interested in ${product.name} (ID: ${product.id}). Quantity: ${quantity}. Please provide more information.`;
-    const whatsappUrl = `https://wa.me/254791159618?text=${encodeURIComponent(message)}`;
+    const message = `Hello! I'm interested in ${product.name} (ID: ${product.id}). ${hasPrice ? `Quantity: ${quantity}.` : 'Please provide pricing information.'}`;
+    const whatsappUrl = `https://wa.me/${formatWhatsAppNumber('254791159618')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   const handleAddToCart = () => {
-    addItem(product, quantity);
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
+    if (!hasPrice) {
+      // If no price, open inquiry instead
+      setIsInquiryOpen(true);
+      return;
+    }
+    
+    const success = addItem(product, quantity);
+    if (success) {
+      setAddedToCart(true);
+      setTimeout(() => setAddedToCart(false), 2000);
+    }
   };
 
   const tabs = [
@@ -127,12 +185,17 @@ const ProductDetail = () => {
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
-                {product.discount && (
+                {product.discount && hasPrice && (
                   <div className="absolute top-4 left-4 px-3 py-1 bg-red-500 text-white font-bold rounded-full">
                     {product.discount} OFF
                   </div>
                 )}
-                {product.badge && !product.discount && (
+                {isInquireOnly && (
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white font-bold rounded-full">
+                    Inquire for Price
+                  </div>
+                )}
+                {product.badge && !product.discount && !isInquireOnly && (
                   <div className={`absolute top-4 left-4 px-3 py-1 text-white font-bold rounded-full ${
                     product.badge === 'Hot' ? 'bg-red-500' :
                     product.badge === 'New' ? 'bg-blue-500' :
@@ -186,13 +249,22 @@ const ProductDetail = () => {
                 <p className="text-gray-600 text-lg leading-relaxed">{product.description}</p>
               </div>
 
-              {/* Price */}
+              {/* Price Section - FIXED for inquire products */}
               <div className="flex items-baseline gap-4 py-4 border-y border-gray-100">
-                <span className="text-4xl font-bold text-emerald-600">{formatPrice(product.price)}</span>
-                {product.oldPrice && (
-                  <span className="text-2xl text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+                {hasPrice ? (
+                  <>
+                    <span className="text-4xl font-bold text-emerald-600">{formatPrice(product.price)}</span>
+                    {product.oldPrice && (
+                      <span className="text-2xl text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+                    )}
+                    <span className="text-gray-500">per {product.priceUnit}</span>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-bold text-amber-600">Inquire for Price</span>
+                    <span className="text-sm text-gray-500">Contact us for pricing</span>
+                  </div>
                 )}
-                <span className="text-gray-500">per {product.priceUnit}</span>
               </div>
 
               {/* Key Info */}
@@ -217,43 +289,47 @@ const ProductDetail = () => {
                 </div>
               </div>
 
-              {/* Quantity Selector */}
-              <div className="flex items-center gap-4">
-                <span className="font-medium text-gray-700">Quantity:</span>
-                <div className="flex items-center border border-gray-300 rounded-lg">
-                  <button 
-                    onClick={() => setQuantity(Math.max(product.minOrder, quantity - 1))}
-                    className="px-4 py-2 hover:bg-gray-100 transition-colors"
-                  >
-                    <Icon name="Minus" size={16} />
-                  </button>
-                  <span className="px-4 py-2 font-semibold min-w-[3rem] text-center">{quantity}</span>
-                  <button 
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="px-4 py-2 hover:bg-gray-100 transition-colors"
-                  >
-                    <Icon name="Plus" size={16} />
-                  </button>
+              {/* Quantity Selector - Only show if has price */}
+              {hasPrice && (
+                <div className="flex items-center gap-4">
+                  <span className="font-medium text-gray-700">Quantity:</span>
+                  <div className="flex items-center border border-gray-300 rounded-lg">
+                    <button 
+                      onClick={() => setQuantity(Math.max(product.minOrder || 1, quantity - 1))}
+                      className="px-4 py-2 hover:bg-gray-100 transition-colors"
+                    >
+                      <Icon name="Minus" size={16} />
+                    </button>
+                    <span className="px-4 py-2 font-semibold min-w-[3rem] text-center">{quantity}</span>
+                    <button 
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="px-4 py-2 hover:bg-gray-100 transition-colors"
+                    >
+                      <Icon name="Plus" size={16} />
+                    </button>
+                  </div>
+                  <span className="text-sm text-gray-500">{product.priceUnit}</span>
                 </div>
-                <span className="text-sm text-gray-500">{product.priceUnit}</span>
-              </div>
+              )}
 
-              {/* Total Price */}
-              <div className="bg-emerald-50 rounded-xl p-4 flex items-center justify-between">
-                <span className="text-gray-700 font-medium">Total Estimate:</span>
-                <span className="text-2xl font-bold text-emerald-600">{formatPrice(product.price * quantity)}</span>
-              </div>
+              {/* Total Price - Only show if has price */}
+              {hasPrice && (
+                <div className="bg-emerald-50 rounded-xl p-4 flex items-center justify-between">
+                  <span className="text-gray-700 font-medium">Total Estimate:</span>
+                  <span className="text-2xl font-bold text-emerald-600">{formatPrice(product.price * quantity)}</span>
+                </div>
+              )}
 
-              {/* Action Buttons */}
+              {/* Action Buttons - FIXED for inquire products */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button 
                   variant="primary" 
                   size="lg" 
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-lg"
+                  className={`flex-1 text-lg ${hasPrice ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-amber-500 hover:bg-amber-600'}`}
                   onClick={() => setIsInquiryOpen(true)}
                 >
                   <Icon name="Send" size={20} className="mr-2" />
-                  Send Inquiry
+                  {hasPrice ? 'Send Inquiry' : 'Request Quote'}
                 </Button>
                 <Button 
                   variant="outline" 
@@ -266,32 +342,47 @@ const ProductDetail = () => {
                 </Button>
               </div>
 
-              {/* Add to Cart Button */}
+              {/* Add to Cart Button - FIXED for inquire products */}
               <div className="pt-4 border-t border-gray-100">
-                <Button 
-                  variant="primary" 
-                  size="lg"
-                  className={`w-full sm:w-auto mx-auto block px-12 py-4 text-lg font-semibold transition-all ${
-                    addedToCart 
-                      ? 'bg-green-500 hover:bg-green-600' 
-                      : 'bg-gray-900 hover:bg-gray-800'
-                  }`}
-                  onClick={handleAddToCart}
-                >
-                  {addedToCart ? (
-                    <span className="flex items-center">
-                      <Icon name="Check" size={20} className="mr-2" />
-                      Added to Cart!
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      <Icon name="ShoppingCart" size={20} className="mr-2" />
-                      Add to Cart
-                    </span>
-                  )}
-                </Button>
+                {hasPrice ? (
+                  <Button 
+                    variant="primary" 
+                    size="lg"
+                    className={`w-full sm:w-auto mx-auto block px-12 py-4 text-lg font-semibold transition-all ${
+                      addedToCart 
+                        ? 'bg-green-500 hover:bg-green-600' 
+                        : 'bg-gray-900 hover:bg-gray-800'
+                    }`}
+                    onClick={handleAddToCart}
+                  >
+                    {addedToCart ? (
+                      <span className="flex items-center">
+                        <Icon name="Check" size={20} className="mr-2" />
+                        Added to Cart!
+                      </span>
+                    ) : (
+                      <span className="flex items-center">
+                        <Icon name="ShoppingCart" size={20} className="mr-2" />
+                        Add to Cart
+                      </span>
+                    )}
+                  </Button>
+                ) : (
+                  <div className="text-center">
+                    <p className="text-amber-600 font-medium mb-2">This product requires a custom quote</p>
+                    <Button 
+                      variant="primary" 
+                      size="lg"
+                      className="w-full sm:w-auto px-12 py-4 text-lg font-semibold bg-amber-500 hover:bg-amber-600"
+                      onClick={() => setIsInquiryOpen(true)}
+                    >
+                      <Icon name="Mail" size={20} className="mr-2" />
+                      Request Quote
+                    </Button>
+                  </div>
+                )}
                 <p className="text-center text-sm text-gray-500 mt-2">
-                  Free delivery in Nairobi • {product.turnaround} turnaround
+                  {hasPrice ? `Free delivery in Nairobi • ${product.turnaround} turnaround` : 'Custom pricing available • Contact us for details'}
                 </p>
               </div>
 
@@ -373,6 +464,12 @@ const ProductDetail = () => {
                             <td className="px-6 py-4 font-medium text-gray-900">Minimum Order</td>
                             <td className="px-6 py-4 text-gray-600">{product.minOrder} {product.priceUnit}</td>
                           </tr>
+                          <tr className="bg-white">
+                            <td className="px-6 py-4 font-medium text-gray-900">Pricing</td>
+                            <td className="px-6 py-4 text-gray-600">
+                              {hasPrice ? formatPrice(product.price) : 'Contact for quote'}
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -431,16 +528,16 @@ const ProductDetail = () => {
           <Button 
             variant="primary" 
             size="lg"
-            className="bg-emerald-600 hover:bg-emerald-700"
+            className={`${hasPrice ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-amber-500 hover:bg-amber-600'}`}
             onClick={() => setIsInquiryOpen(true)}
           >
             <Icon name="Send" size={20} className="mr-2" />
-            Open Inquiry Form
+            {hasPrice ? 'Open Inquiry Form' : 'Request Quote'}
           </Button>
         </div>
       </section>
 
-      {/* Related Products */}
+      {/* Related Products - FIXED to handle inquire prices */}
       {relatedProducts.length > 0 && (
         <section className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -474,9 +571,14 @@ const ProductDetail = () => {
                         e.target.src = '/images/placeholder-product.jpg';
                       }}
                     />
-                    {item.discount && (
+                    {item.discount && hasValidPrice(item.price) && (
                       <div className="absolute top-3 left-3 px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
                         {item.discount}
+                      </div>
+                    )}
+                    {isInquireProduct(item.price) && (
+                      <div className="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-xs font-bold rounded">
+                        Inquire
                       </div>
                     )}
                   </div>
@@ -485,7 +587,9 @@ const ProductDetail = () => {
                       {item.name}
                     </h3>
                     <div className="flex items-center justify-between mt-auto">
-                      <span className="text-lg font-bold text-emerald-600">{formatPrice(item.price)}</span>
+                      <span className={`text-lg font-bold ${hasValidPrice(item.price) ? 'text-emerald-600' : 'text-amber-600'}`}>
+                        {formatPrice(item.price)}
+                      </span>
                       <span className="text-xs text-gray-500">/{item.priceUnit}</span>
                     </div>
                   </div>
@@ -496,7 +600,7 @@ const ProductDetail = () => {
         </section>
       )}
 
-      {/* Modern Inquiry Modal */}
+      {/* Modern Inquiry Modal - FIXED EmailJS & WhatsApp */}
       <InquiryModal 
         isOpen={isInquiryOpen} 
         onClose={() => setIsInquiryOpen(false)} 
@@ -507,7 +611,7 @@ const ProductDetail = () => {
   );
 };
 
-// Modern Inquiry Modal Component (same as shop component)
+// Modern Inquiry Modal Component - FIXED to actually send emails and format WhatsApp
 const InquiryModal = ({ isOpen, onClose, product, initialQuantity = 1 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
@@ -545,8 +649,6 @@ const handleSubmit = async (e) => {
   setIsSubmitting(true);
   setSubmitStatus(null);
 
-  let result; // Define result outside try block so it's accessible everywhere
-
   try {
     const now = new Date();
     const timestamp = now.toLocaleString('en-KE', {
@@ -562,20 +664,27 @@ const handleSubmit = async (e) => {
       from_name: formData.name,
       from_email: formData.email,
       phone: formData.phone,
-      quantity: formData.quantity,
+      formatted_phone: formatWhatsAppNumber(formData.phone),
       message: formData.message || 'No additional message provided',
       product_name: formData.productName,
       product_id: formData.productId,
       reply_to: formData.email,
-      timestamp: timestamp
+      timestamp: timestamp,
+      preferred_contact: 'email',
+      cart_total: formatPrice(product.price * parseInt(formData.quantity)),
+      item_count: '1',
+      quantity: formData.quantity,
+      // Hide cart section for single product inquiry
+      cart_section_display: 'none',
+      cart_items_html: ''
     };
 
-    // Assign to the outer result variable
-    const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_bllp7ef',
-  TEMPLATE_ID: 'template_5qy4nwm', 
-  PUBLIC_KEY: 'kiEUK4XklpodvcXo-'
-};
+    const result = await emailjs.send(
+      EMAILJS_CONFIG.SERVICE_ID,
+      EMAILJS_CONFIG.TEMPLATE_ID,
+      templateParams,
+      EMAILJS_CONFIG.PUBLIC_KEY
+    );
 
     console.log('EmailJS Success:', result);
     setSubmitStatus('success');
@@ -598,14 +707,13 @@ const handleSubmit = async (e) => {
     
   } catch (error) {
     console.error('EmailJS Error:', error);
-    // Log result here only if it was defined (it might be undefined if error happened before assignment)
-    console.log('Result status:', result); 
     setSubmitStatus('error');
   } finally {
     setIsSubmitting(false);
   }
 };
 
+  // ✅ FIXED: WhatsApp handler with number formatting
   const handleWhatsApp = () => {
     const message = `Hello Luna Graphics! 
 
@@ -620,7 +728,7 @@ Quantity: ${formData.quantity}
 
 Message: ${formData.message || 'No additional message'}`;
 
-    const whatsappUrl = `https://wa.me/254791159618?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/${formatWhatsAppNumber(formData.phone || '254791159618')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     onClose();
   };
@@ -706,8 +814,9 @@ Message: ${formData.message || 'No additional message'}`;
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
-                      placeholder="07XX XXX XXX"
+                      placeholder="07XX XXX XXX or 2547XX XXX XXX"
                     />
+                    <p className="text-xs text-gray-500 mt-1">We'll format this automatically for WhatsApp</p>
                   </div>
                 </div>
 

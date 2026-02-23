@@ -4,9 +4,29 @@ const CartContext = createContext();
 
 const CART_STORAGE_KEY = 'luna_graphics_cart';
 
+// Helper to check if product has valid price
+const hasValidPrice = (price) => {
+  return typeof price === 'number' && !isNaN(price) && price > 0;
+};
+
+// Helper to check if product is inquire-only
+const isInquireProduct = (price) => {
+  if (typeof price === 'string') {
+    const lower = price.toLowerCase();
+    return lower === 'inquire' || lower === 'inquiry' || lower === 'contact for price' || lower === 'contact us';
+  }
+  return false;
+};
+
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_ITEM': {
+      // Don't add inquire products to cart
+      if (isInquireProduct(action.payload.price)) {
+        console.warn('Cannot add inquire products to cart');
+        return state;
+      }
+
       const existingItem = state.items.find(item => item.id === action.payload.id);
       if (existingItem) {
         return {
@@ -44,7 +64,9 @@ const cartReducer = (state, action) => {
       return { items: [] };
     
     case 'LOAD_CART':
-      return { items: action.payload };
+      // Filter out any inquire products that might have been saved previously
+      const validItems = (action.payload || []).filter(item => hasValidPrice(item.price));
+      return { items: validItems };
     
     default:
       return state;
@@ -83,6 +105,12 @@ export const CartProvider = ({ children }) => {
   }, [state.items, isLoaded]);
 
   const addItem = (product, quantity = 1) => {
+    // Check if product is inquire-only
+    if (isInquireProduct(product.price)) {
+      console.warn('Cannot add inquire products to cart:', product.name);
+      return false; // Return false to indicate failure
+    }
+
     const productImage = product.images && product.images.length > 0
       ? product.images[0]
       : product.image;
@@ -101,6 +129,7 @@ export const CartProvider = ({ children }) => {
         priceUnit: product.priceUnit || 'each'
       }
     });
+    return true; // Return true to indicate success
   };
 
   const removeItem = (cartId) => {
@@ -131,12 +160,38 @@ export const CartProvider = ({ children }) => {
     return state.items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  // FIXED: Only sum items with valid prices, exclude inquire products
   const getCartTotal = () => {
-    return state.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return state.items.reduce((total, item) => {
+      if (hasValidPrice(item.price)) {
+        return total + (item.price * item.quantity);
+      }
+      return total;
+    }, 0);
+  };
+
+  // Helper to check if a product can be added to cart
+  const canAddToCart = (product) => {
+    return hasValidPrice(product.price);
+  };
+
+  // Format price helper that handles inquire products
+  const formatPrice = (price) => {
+    if (isInquireProduct(price)) {
+      return 'Inquire';
+    }
+    if (!hasValidPrice(price)) {
+      return 'Inquire';
+    }
+    return new Intl.NumberFormat('en-KE', {
+      style: 'currency',
+      currency: 'KES',
+      minimumFractionDigits: 0
+    }).format(price);
   };
 
   if (!isLoaded) {
-    return null; // or loading spinner
+    return null;
   }
 
   return (
@@ -148,7 +203,11 @@ export const CartProvider = ({ children }) => {
       clearCart,
       getCartCount,
       getTotalItems,
-      getCartTotal
+      getCartTotal,
+      canAddToCart,
+      formatPrice,
+      isInquireProduct,
+      hasValidPrice
     }}>
       {children}
     </CartContext.Provider>

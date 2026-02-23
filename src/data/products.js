@@ -4922,27 +4922,51 @@ export const searchProducts = (query) => {
 };
 
 // Pagination helper
-export const getPaginatedProducts = (page = 1, limit = 12, filters = {}) => {
-  let filtered = products;
+// Pagination helper - FIXED VERSION
+export const getPaginatedProducts = (page = 1, perPage = 12, filters = {}) => {
+  let filtered = [...products];
   
-  if (filters.category) {
-    filtered = filtered.filter(p => p.category === filters.category);
+  // Filter by category
+  if (filters.category && filters.category !== 'all') {
+    filtered = filtered.filter(p => 
+      p.category === filters.category || 
+      p.subcategory?.toLowerCase().replace(/\s+/g, '-') === filters.category ||
+      p.subcategory === filters.category
+    );
   }
   
-  if (filters.search) {
-    filtered = searchProducts(filters.search);
+  // Filter by search - ROBUST FUZZY MATCHING
+  if (filters.search && filters.search.trim()) {
+    const query = filters.search.toLowerCase().trim();
+    const words = query.split(/\s+/).filter(w => w.length > 0);
+    
+    filtered = filtered.filter(p => {
+      const searchableText = [
+        p.name,
+        p.description,
+        p.longDescription,
+        p.category,
+        p.subcategory,
+        p.badge,
+        ...(p.features || []),
+        ...(p.specifications ? Object.values(p.specifications) : [])
+      ].filter(Boolean).join(' ').toLowerCase();
+      
+      // Check if all words match somewhere in the product
+      return words.every(word => searchableText.includes(word));
+    });
   }
   
-  const start = (page - 1) * limit;
-  const end = start + limit;
-  const paginatedItems = filtered.slice(start, end);
+  const total = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * perPage;
+  const items = filtered.slice(start, start + perPage);
   
   return {
-    items: paginatedItems,
-    total: filtered.length,
-    totalPages: Math.ceil(filtered.length / limit),
-    currentPage: page,
-    hasNext: end < filtered.length,
-    hasPrev: page > 1
+    items,
+    total,
+    totalPages,
+    currentPage
   };
 };

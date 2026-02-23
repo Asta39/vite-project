@@ -8,6 +8,7 @@ import Button from '../../components/ui/Button';
 import { useCart } from '../../context/CartContext';
 import Header from '../../components/ui/Header';
 import { getProductById } from '../../data/products';
+import CartInquiryModal from '../../components/ui/CartInquiryModal';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Cart = () => {
   
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutMethod, setCheckoutMethod] = useState(null);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false); // Added for CartInquiryModal
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -263,7 +265,7 @@ const Cart = () => {
           </div>
 
           {/* Order Summary */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-4">
             <div className="bg-white rounded-xl border border-gray-200 p-6 sticky top-24">
               <h2 className="text-lg font-bold text-gray-900 mb-4">Order Summary</h2>
               
@@ -313,6 +315,17 @@ const Cart = () => {
                   <Icon name="Mail" size={20} className="mr-2" />
                   Checkout via Email
                 </Button>
+
+                {/* NEW: Request Quote Button */}
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full border-amber-500 text-amber-600 hover:bg-amber-50"
+                  onClick={() => setIsInquiryOpen(true)}
+                >
+                  <Icon name="FileText" size={20} className="mr-2" />
+                  Request Custom Quote
+                </Button>
                 
                 <Button
                   variant="ghost"
@@ -322,6 +335,27 @@ const Cart = () => {
                 >
                   Continue Shopping
                 </Button>
+              </div>
+            </div>
+
+            {/* NEW: Bulk Inquiry Card */}
+            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border border-emerald-100 p-6">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon name="HelpCircle" size={20} className="text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-emerald-900 mb-1">Need a custom quote?</h3>
+                  <p className="text-sm text-emerald-700 mb-3">
+                    Have special requirements or bulk order? Get a personalized quote.
+                  </p>
+                  <button
+                    onClick={() => setIsInquiryOpen(true)}
+                    className="text-sm font-medium text-emerald-600 hover:text-emerald-800 underline"
+                  >
+                    Request Quote →
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -495,6 +529,12 @@ const Cart = () => {
           </motion.div>
         </div>
       )}
+
+      {/* NEW: Cart Inquiry Modal */}
+      <CartInquiryModal 
+        isOpen={isInquiryOpen} 
+        onClose={() => setIsInquiryOpen(false)} 
+      />
     </div>
   );
 };

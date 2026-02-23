@@ -1,23 +1,23 @@
 import React from "react";
-import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
+import { BrowserRouter, Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
 import ErrorBoundary from "components/ErrorBoundary";
 
 // ✅ CORRECTED IMPORTS - matching your actual folder names
 import Homepage from "pages/homepage";
-import TeamPage from "pages/team";                          // FIXED: was "team-page"
-import ContactPage from "pages/contact";                    // FIXED: was "contact-page"
-import GalleryPage from "pages/gallery";                    // FIXED: was "gallery-page"
-import LargeFormatServicesPage from "pages/large-format";  // Keep as is
-import PlottingServicesPage from "pages/plotting";          // FIXED: was "plotting-services-page"
-import UVPrintingServicesPage from "pages/uv-printing";     // FIXED: was "uv-printing-services-page"
-import CNCCuttingServicesPage from "pages/cnc-cutting";     // FIXED: was "cnc-cutting-services-page"
-import LaserCuttingServicesPage from "pages/laser-cutting"; // FIXED: was "laser-cutting-services-page"
-import TShirtPrintingServicesPage from "pages/t-shirt-printing"; // FIXED: was "t-shirt-printing-services-page"
-import CorporateServicesPage from "pages/corporate-services";    // FIXED: was "corporate-services-page"
-import PrivacyPolicy from "pages/privacy-policy";           // FIXED: removed './'
-import TermsOfService from "pages/terms-of-service";        // FIXED: removed './'
-import CorporateTerms from "pages/corporate-terms";  
+import TeamPage from "pages/team";
+import ContactPage from "pages/contact";
+import GalleryPage from "pages/gallery";
+import LargeFormatServicesPage from "pages/large-format";
+import PlottingServicesPage from "pages/plotting";
+import UVPrintingServicesPage from "pages/uv-printing";
+import CNCCuttingServicesPage from "pages/cnc-cutting";
+import LaserCuttingServicesPage from "pages/laser-cutting";
+import TShirtPrintingServicesPage from "pages/t-shirt-printing";
+import CorporateServicesPage from "pages/corporate-services";
+import PrivacyPolicy from "pages/privacy-policy";
+import TermsOfService from "pages/terms-of-service";
+import CorporateTerms from "pages/corporate-terms";
 import WhatsAppChat from './components/ui/WhatsAppChat';
 import About from './pages/about/About';
 import EventsExhibitions from './pages/corporate/EventsExhibitions';
@@ -26,19 +26,8 @@ import Shop from './pages/shop/Shop';
 import ProductDetail from './pages/shop/ProductDetail';
 import Cart from './pages/cart/Cart';
 import ServiceDetail from './pages/shop/components/ServiceDetail';
-
-
-
-
-
-
-
-       // FIXED: removed './'
-// TODO: Create these pages or remove routes
-// import CaseStudiesPage from "pages/case-studies";
 import BlogPage from "pages/blog";
-import BlogPost from "pages/BlogPost";  // Add this import
-
+import BlogPost from "pages/BlogPost";
 import FAQPage from "pages/faq";
 import NotFound from "pages/NotFound";
 
@@ -48,10 +37,14 @@ const Routes = () => {
       <ErrorBoundary>
         <ScrollToTop />
         <RouterRoutes>
-          {/* ✅ CORRECTED ROUTES - clean URL structure */}
-          <Route path="/" element={<Homepage />} />
+          {/* ✅ ROOT SHOWS SHOP */}
+          <Route path="/" element={<Shop />} />
+          <Route path="/homepage" element={<Homepage />} />
           
-          {/* Services - nested under /services/ */}
+          {/* ✅ KEEP /shop WORKING - don't redirect, just render Shop */}
+          <Route path="/shop" element={<Shop />} />
+          
+          {/* Services */}
           <Route path="/services/large-format" element={<LargeFormatServicesPage />} />
           <Route path="/services/plotting" element={<PlottingServicesPage />} />
           <Route path="/services/uv-printing" element={<UVPrintingServicesPage />} />
@@ -62,41 +55,32 @@ const Routes = () => {
           {/* Main pages */}
           <Route path="/team" element={<TeamPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/gallery" element={<GalleryPage />} />  {/* FIXED: was broken */}
+          <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/corporate-services" element={<CorporateServicesPage />} />
           <Route path="/corporate/events-exhibitions" element={<EventsExhibitions />} />
           <Route path="/corporate/corporate-branding" element={<CorporateBranding />} />
-          <Route path="/shop" element={<Shop />} />
+          
+          {/* Shop routes */}
           <Route path="/shop/category/:categoryId" element={<Shop />} />
           <Route path="/shop/product/:productId" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/service/:serviceId" element={<ServiceDetail />} />
 
-
-
-
-          
           {/* Legal pages */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/corporate-terms" element={<CorporateTerms />} />
-
           <Route path="/about" element={<About />} />
-
           
-          {/* TODO: Uncomment when pages are created */}
-          {/* <Route path="/case-studies" element={<CaseStudiesPage />} /> */}
-          {<Route path="/blog" element={<BlogPage />} /> }
+          {/* Blog */}
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
-
-
           <Route path="/faq" element={<FAQPage />} />
           
-          {/* 404 - must be last */}
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </RouterRoutes>
-              <WhatsAppChat />
-
+        <WhatsAppChat />
       </ErrorBoundary>
     </BrowserRouter>
   );

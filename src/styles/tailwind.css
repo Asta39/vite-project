@@ -328,3 +328,11 @@ html {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
