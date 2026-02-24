@@ -8,7 +8,7 @@ import Button from '../../../components/ui/Button';
 const heroSlides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&h=600&fit=crop',
+    image: '/products/9.jpg',
     title: 'Events & Exhibitions',
     subtitle: 'Event booths & exhibitions merch',
     price: 'Upon Inquiry',
@@ -17,7 +17,7 @@ const heroSlides = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
+    image: '/products/34.jpg',
     title: 'Corporate Branding',
     subtitle: 'Business Cards, Stationery',
     price: 'Upon Inquiry',
@@ -26,7 +26,7 @@ const heroSlides = [
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
+    image: '/products/85.jpg',
     title: 'Large Format Printing',
     subtitle: 'Posters, Billboards, Backdrops',
     price: 'From KES 700',
@@ -35,7 +35,7 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&h=600&fit=crop',
+    image: '/products/55.jpg',
     title: 'Custom Merchandise',
     subtitle: 'T-Shirts, Mugs, Gifts',
     price: 'From KES 600',
@@ -48,7 +48,7 @@ const heroSlides = [
 const sideBanners = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',
+    image: '/products/78.jpg',
     title: '2027 Political campaign Materials',
     subtitle: 'Campaign merch, campaign posters, campaign signs',
     link: '/corporate-services',
@@ -56,7 +56,7 @@ const sideBanners = [
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop',
+    image: '/products/31.jpg',
     title: 'Office Branding',
     subtitle: 'Wall Graphics & Signs',
     link: '/corporate/corporate-branding',
